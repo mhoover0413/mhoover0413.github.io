@@ -1,0 +1,29 @@
+div {
+  font-family: cursive;
+}
+#content {
+  padding: 10px;
+}
+
+#headerBox {
+  text-align: center;
+
+}
+
+#linksTopBox {
+  text-align: center;
+}
+
+.button1 {
+  color: white;
+}
+
+#paraBoxes {
+  text-align: center;
+}
+
+
+.paraBox {
+  color: black;
+  margin: 5px;
+}
