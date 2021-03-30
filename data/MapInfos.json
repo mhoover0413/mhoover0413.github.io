@@ -1,13 +1,13 @@
 [
 null,
-{"id":1,"expanded":true,"name":"home_outside","order":1,"parentId":0,"scrollX":655.2,"scrollY":368.8},
-{"id":2,"expanded":false,"name":"outside_school","order":7,"parentId":0,"scrollX":832,"scrollY":640},
-{"id":3,"expanded":true,"name":"boulderpass","order":2,"parentId":0,"scrollX":728,"scrollY":409.77777777777777},
-{"id":4,"expanded":false,"name":"bpdungeon","order":3,"parentId":3,"scrollX":2143.1111111111113,"scrollY":760.8888888888889},
-{"id":5,"expanded":false,"name":"debugroom","order":4,"parentId":0,"scrollX":1228.5,"scrollY":691.5},
-{"id":6,"expanded":true,"name":"forest trail","order":5,"parentId":0,"scrollX":728,"scrollY":409.77777777777777},
-{"id":7,"expanded":false,"name":"forest dungeon","order":6,"parentId":6,"scrollX":3931.2,"scrollY":2212.7999999999997},
-{"id":8,"expanded":true,"name":"atown","order":8,"parentId":0,"scrollX":816,"scrollY":800},
-{"id":9,"expanded":false,"name":"inn","order":9,"parentId":8,"scrollX":595.6363636363636,"scrollY":335.27272727272725},
+{"id":1,"expanded":true,"name":"home_outside","order":1,"parentId":0,"scrollX":595.6363636363636,"scrollY":335.27272727272725},
+{"id":2,"expanded":false,"name":"outside_school","order":7,"parentId":0,"scrollX":595.6363636363636,"scrollY":335.27272727272725},
+{"id":3,"expanded":true,"name":"boulderpass","order":2,"parentId":0,"scrollX":3276,"scrollY":1844},
+{"id":4,"expanded":false,"name":"bpdungeon","order":3,"parentId":3,"scrollX":2770.181818181818,"scrollY":1110.5454545454545},
+{"id":5,"expanded":false,"name":"debugroom","order":4,"parentId":0,"scrollX":1092,"scrollY":614.6666666666666},
+{"id":6,"expanded":true,"name":"forest trail","order":5,"parentId":0,"scrollX":819,"scrollY":461},
+{"id":7,"expanded":false,"name":"forest dungeon","order":6,"parentId":6,"scrollX":1946.3999999999999,"scrollY":1994.3999999999999},
+{"id":8,"expanded":true,"name":"atown","order":8,"parentId":0,"scrollX":1404.3636363636363,"scrollY":790.5454545454545},
+{"id":9,"expanded":false,"name":"inn","order":9,"parentId":8,"scrollX":3276,"scrollY":1844},
 {"id":10,"expanded":false,"name":"generalstore","order":10,"parentId":8,"scrollX":595.6363636363636,"scrollY":335.27272727272725}
 ]
