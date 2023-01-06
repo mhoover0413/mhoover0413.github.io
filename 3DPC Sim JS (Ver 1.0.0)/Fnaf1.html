@@ -1,0 +1,990 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNAF 1</title>
+</head>
+
+<body>
+    <button id="StartGame" onclick="BeginGameDesktop()">Start FNAF 1 (Headphones Suggested + F11) *Desktop*</button>
+    <br>
+    <button id="StartGame" onclick="BeginGameLaptop()">Start FNAF 1 (Headphones Suggested + F11, Zoom out to 75%)
+        *Laptop*</button>
+    <script type='text/javascript'
+        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js?id=133a13f7-9047-4b94-9a64-f7f97f861dab"></script>
+    <script type='text/javascript'
+        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js?id=a048f76d-c620-4516-9d22-1131ee997081"></script>
+    <script type='text/javascript'
+        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js?id=a3ef5d81-b415-463a-b75f-e3e5ee9ccbdb"></script>
+    <script type='text/javascript'
+        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js?id=6cd987a0-c46e-46a1-92e2-e3b0d79ff19e"></script>
+</body>
+<script>
+    //Add a gus easter egg
+
+    //1/10 chance to show mr smiths cat instead of chica
+
+    //Boop le nose goes to talons site (fnaf site), boop le cupcake goes to brandons site (fnaf ufc later)
+
+    //1/10 chance to play a oggliebooglie sound instead of jumpscare (Flashbang effect with light?)
+
+    var mainImg = document.createElement("img");
+    mainImg.style.position = "absolute";
+    mainImg.style.width = 2125 + "px";
+    document.body.style.overflow = "hidden";
+    mainImg.style.left = 0 + "px";
+    mainImg.style.top = 0 + "px";
+    mainImg.src = "Fnaf1/MainFNAFBackground.png";
+
+    var mainStatic = document.createElement("img");
+    mainStatic.style.position = "absolute";
+    mainStatic.style.width = 2125 + "px";
+    mainStatic.style.visibility = "hidden";
+    mainStatic.style.left = 0 + "px";
+    mainStatic.style.top = 0 + "px";
+    mainStatic.src = "Fnaf1/MonitorFuzz.gif";
+    mainStatic.style.zIndex = 3;
+
+    var button = document.createElement("img");
+    button.id = "Monitor"
+    button.src = "Fnaf1/CamButton.png";
+    button.style.position = "fixed";
+    button.style.top = 890 + 'px';
+    button.style.left = 650 + "px";
+    button.style.width = 680 + 'px';
+    button.style.zIndex = 5;
+
+    var mainCam = document.createElement("img");
+    mainCam.style.position = "absolute";
+    mainCam.style.width = 1900 + "px";
+    mainCam.style.height = 1000 + "px";
+    mainCam.style.visibility = "hidden";
+    mainCam.style.left = 0 + "px";
+    mainCam.style.top = 0 + "px";
+    mainCam.id = "CamMainImage"
+    mainCam.src = "Fnaf1/Cam1aImage.png";
+    mainCam.style.zIndex = 2;
+
+    var mainMini = document.createElement("img");
+    mainMini.style.position = "absolute";
+    mainMini.style.width = 300 + "px";
+    mainMini.style.visibility = "hidden";
+    mainMini.style.left = 1600 + "px";
+    mainMini.style.top = 680 + "px";
+    mainMini.id = "CamMini"
+    mainMini.src = "Fnaf1/Cam1a.png";
+    mainMini.style.zIndex = 2;
+
+    var invisButton1 = document.createElement("img");
+    invisButton1.style.position = "absolute";
+    invisButton1.style.width = 44 + "px";
+    invisButton1.style.height = 30 + "px";
+    //invisButton1.style.visibility = "hidden";
+    invisButton1.style.left = 1696 + "px";
+    invisButton1.style.top = 680 + "px";
+    invisButton1.id = "invisButton1"
+    invisButton1.src = "Fnaf1/invisImg.png";
+    invisButton1.style.zIndex = 5;
+
+    var invisButton2 = document.createElement("img");
+    invisButton2.style.position = "absolute";
+    invisButton2.style.width = 44 + "px";
+    invisButton2.style.height = 30 + "px";
+    //invisButton2.style.visibility = "hidden";
+    invisButton2.style.left = 1680 + "px";
+    invisButton2.style.top = 721 + "px";
+    invisButton2.id = "invisButton2"
+    invisButton2.src = "Fnaf1/invisImg.png";
+    invisButton2.style.zIndex = 5;
+
+    var invisButton3 = document.createElement("img");
+    invisButton3.style.position = "absolute";
+    invisButton3.style.width = 44 + "px";
+    invisButton3.style.height = 30 + "px";
+    //invisButton3.style.visibility = "hidden";
+    invisButton3.style.left = 1600 + "px";
+    invisButton3.style.top = 741 + "px";
+    invisButton3.id = "invisButton3"
+    invisButton3.src = "Fnaf1/invisImg.png";
+    invisButton3.style.zIndex = 5;
+
+    var invisButton4 = document.createElement("img");
+    invisButton4.style.position = "absolute";
+    invisButton4.style.width = 44 + "px";
+    invisButton4.style.height = 30 + "px";
+    //invisButton4.style.visibility = "hidden";
+    invisButton4.style.left = 1850 + "px";
+    invisButton4.style.top = 741 + "px";
+    invisButton4.id = "invisButton4"
+    invisButton4.src = "Fnaf1/invisImg.png";
+    invisButton4.style.zIndex = 5;
+
+    var invisButton5 = document.createElement("img");
+    invisButton5.style.position = "absolute";
+    invisButton5.style.width = 44 + "px";
+    invisButton5.style.height = 30 + "px";
+    //invisButton5.style.visibility = "hidden";
+    invisButton5.style.left = 1656 + "px";
+    invisButton5.style.top = 782 + "px";
+    invisButton5.id = "invisButton5"
+    invisButton5.src = "Fnaf1/invisImg.png";
+    invisButton5.style.zIndex = 5;
+
+    var invisButton6 = document.createElement("img");
+    invisButton6.style.position = "absolute";
+    invisButton6.style.width = 44 + "px";
+    invisButton6.style.height = 30 + "px";
+    //invisButton6.style.visibility = "hidden";
+    invisButton6.style.left = 1633 + "px";
+    invisButton6.style.top = 852 + "px";
+    invisButton6.id = "invisButton6"
+    invisButton6.src = "Fnaf1/invisImg.png";
+    invisButton6.style.zIndex = 5;
+
+    var invisButton7 = document.createElement("img");
+    invisButton7.style.position = "absolute";
+    invisButton7.style.width = 44 + "px";
+    invisButton7.style.height = 30 + "px";
+    //invisButton7.style.visibility = "hidden";
+    invisButton7.style.left = 1843 + "px";
+    invisButton7.style.top = 842 + "px";
+    invisButton7.id = "invisButton7"
+    invisButton7.src = "Fnaf1/invisImg.png";
+    invisButton7.style.zIndex = 5;
+
+    var invisButton8 = document.createElement("img");
+    invisButton8.style.position = "absolute";
+    invisButton8.style.width = 44 + "px";
+    invisButton8.style.height = 30 + "px";
+    //invisButton8.style.visibility = "hidden";
+    invisButton8.style.left = 1695 + "px";
+    invisButton8.style.top = 868 + "px";
+    invisButton8.id = "invisButton8"
+    invisButton8.src = "Fnaf1/invisImg.png";
+    invisButton8.style.zIndex = 5;
+
+    var invisButton9 = document.createElement("img");
+    invisButton9.style.position = "absolute";
+    invisButton9.style.width = 44 + "px";
+    invisButton9.style.height = 30 + "px";
+    //invisButton9.style.visibility = "hidden";
+    invisButton9.style.left = 1775 + "px";
+    invisButton9.style.top = 868 + "px";
+    invisButton9.id = "invisButton9"
+    invisButton9.src = "Fnaf1/invisImg.png";
+    invisButton9.style.zIndex = 5;
+
+    var invisButton10 = document.createElement("img");
+    invisButton10.style.position = "absolute";
+    invisButton10.style.width = 44 + "px";
+    invisButton10.style.height = 30 + "px";
+    //invisButton10.style.visibility = "hidden";
+    invisButton10.style.left = 1695 + "px";
+    invisButton10.style.top = 895 + "px";
+    invisButton10.id = "invisButton10"
+    invisButton10.src = "Fnaf1/invisImg.png";
+    invisButton10.style.zIndex = 5;
+
+    var invisButton11 = document.createElement("img");
+    invisButton11.style.position = "absolute";
+    invisButton11.style.width = 44 + "px";
+    invisButton11.style.height = 30 + "px";
+    //invisButton11.style.visibility = "hidden";
+    invisButton11.style.left = 1775 + "px";
+    invisButton11.style.top = 895 + "px";
+    invisButton11.id = "invisButton11"
+    invisButton11.src = "Fnaf1/invisImg.png";
+    invisButton11.style.zIndex = 5;
+
+    var exitMonButton = document.createElement("button");
+    exitMonButton.textContent = "Force Exit Monitor (Should Work)"
+    exitMonButton.style.position = "fixed"
+    exitMonButton.style.backgroundColor = "#282a30"
+    exitMonButton.style.color = "white"
+    exitMonButton.style.width = 205 + "px"
+    exitMonButton.style.height = 20 + "px"
+    exitMonButton.style.zIndex = 6;
+    exitMonButton.style.left = 51 + "px"
+    exitMonButton.style.top = 915 + "px"
+    exitMonButton.style.padding = 0 + "px"
+    exitMonButton.id = "ExitButton"
+
+    var freddy = document.createElement("img")
+    freddy.id = "Freddy";
+    freddy.src = "Fnaf1/Freddy.png"
+    freddy.style.position = "absolute";
+    freddy.style.zIndex = 4;
+    freddy.style.left = 1676 + "px";
+    freddy.style.top = 680 + "px";
+    freddy.style.width = 30 + "px";
+    freddy.style.height = 30 + "px"
+
+    var bonnie = document.createElement("img")
+    bonnie.id = "Bonnie";
+    bonnie.src = "Fnaf1/Bonnie.png"
+    bonnie.style.position = "absolute";
+    bonnie.style.zIndex = 4;
+    bonnie.style.left = 1696 + "px";
+    bonnie.style.top = 680 + "px";
+    bonnie.style.width = 30 + "px";
+    bonnie.style.height = 30 + "px";
+
+    var chica = document.createElement("img")
+    chica.id = "Chica";
+    chica.src = "Fnaf1/Chica.png"
+    chica.style.position = "absolute";
+    chica.style.zIndex = 4;
+    chica.style.left = 1716 + "px";
+    chica.style.top = 680 + "px";
+    chica.style.width = 30 + "px";
+    chica.style.height = 35 + "px";
+
+    var foxy = document.createElement("img")
+    foxy.id = "Foxy";
+    foxy.src = "Fnaf1/Foxy.png"
+    foxy.style.position = "absolute";
+    foxy.style.zIndex = 4;
+    foxy.style.left = 1660 + "px";
+    foxy.style.top = 780 + "px";
+    foxy.style.width = 35 + "px";
+    foxy.style.height = 35 + "px";
+
+    var doorLeftBttn = document.createElement('img')
+    doorLeftBttn.id = "LeftBttn"
+    doorLeftBttn.style.position = "absolute"
+    doorLeftBttn.src = "Fnaf1/doorLeftBttn.png";
+    doorLeftBttn.style.width = 65 + "px";
+    doorLeftBttn.style.height = 90 + "px";
+    doorLeftBttn.style.left = 23 + "px";
+    doorLeftBttn.style.top = 378 + "px";
+    doorLeftBttn.style.zIndex = 1;
+
+    var doorLeftLight = document.createElement('img')
+    doorLeftLight.id = "LeftLight"
+    doorLeftLight.style.position = "absolute"
+    doorLeftLight.src = "Fnaf1/doorLeftLight.png";
+    doorLeftLight.style.width = 64 + "px";
+    doorLeftLight.style.height = 85 + "px";
+    doorLeftLight.style.left = 24 + "px";
+    doorLeftLight.style.top = 465 + "px";
+    doorLeftLight.style.zIndex = 2;
+
+    var doorRightLight = document.createElement('img')
+    doorRightLight.id = "RightLight"
+    doorRightLight.style.position = "absolute"
+    doorRightLight.src = "Fnaf1/doorRightLight.png";
+    doorRightLight.style.width = 60 + "px";
+    doorRightLight.style.height = 90 + "px";
+    doorRightLight.style.left = 2005 + "px";
+    doorRightLight.style.top = 458 + "px";
+    doorRightLight.style.zIndex = 1;
+
+    var doorRightBttn = document.createElement('img')
+    doorRightBttn.id = "RightBttn"
+    doorRightBttn.style.position = "absolute"
+    doorRightBttn.src = "Fnaf1/doorRightBttn.png";
+    doorRightBttn.style.width = 60 + "px";
+    doorRightBttn.style.height = 100 + "px";
+    doorRightBttn.style.left = 2004 + "px";
+    doorRightBttn.style.top = 364 + "px";
+    doorRightBttn.style.zIndex = 1;
+
+    var doorRightLit2 = document.createElement('img')
+    doorRightLit2.style.position = "absolute"
+    doorRightLit2.style.visibility = "hidden";
+    doorRightLit2.src = "Fnaf1/doorRightLit2.png";
+    doorRightLit2.style.width = 190 + "px";
+    doorRightLit2.style.height = 900 + "px";
+    doorRightLit2.style.left = 1760 + "px";
+    doorRightLit2.style.top = 70 + "px";
+    doorRightLit2.style.zIndex = 0;
+
+    var doorRightClosed = document.createElement('img')
+    doorRightClosed.style.position = "absolute"
+    doorRightClosed.style.visibility = "hidden";
+    doorRightClosed.src = "Fnaf1/doorRightClosed.png";
+    doorRightClosed.style.width = 210 + "px";
+    doorRightClosed.style.height = 920 + "px";
+    doorRightClosed.style.left = 1758 + "px";
+    doorRightClosed.style.top = 60 + "px";
+    doorRightClosed.style.zIndex = 1;
+
+    var doorLeftLit = document.createElement('img')
+    doorLeftLit.style.position = "absolute"
+    doorLeftLit.style.visibility = "hidden";
+    doorLeftLit.src = "Fnaf1/doorLeftLit.png";
+    doorLeftLit.style.width = 217 + "px";
+    doorLeftLit.style.height = 920 + "px";
+    doorLeftLit.style.left = 120 + "px";
+    doorLeftLit.style.top = 45 + "px";
+    doorLeftLit.style.zIndex = 0;
+
+    var doorLeftClosed = document.createElement('img')
+    doorLeftClosed.style.position = "absolute"
+    doorLeftClosed.style.visibility = "hidden";
+    doorLeftClosed.src = "Fnaf1/doorLeftClosed.png";
+    doorLeftClosed.style.width = 217 + "px";
+    doorLeftClosed.style.height = 938 + "px";
+    doorLeftClosed.style.left = 120 + "px";
+    doorLeftClosed.style.top = 50 + "px";
+    doorLeftClosed.style.zIndex = 1;
+
+    var fan = document.createElement('img')
+    fan.style.position = "absolute"
+    fan.src = "Fnaf1/FanAnimated.gif";
+    fan.style.width = 175 + "px";
+    fan.style.height = 235 + "px";
+    fan.style.left = 1041.5 + "px";
+    fan.style.top = 418.5 + "px";
+    fan.style.zIndex = 1;
+
+    //Fix Time
+    var time = document.createElement('div')
+    time.style.position = "fixed"
+    time.innerText = "12 AM"
+    time.style.color = "white"
+    time.style.fontSize = 50;
+    time.style.width = 160 + "px";
+    time.style.height = 50 + "px";
+    time.style.left = 1760 + "px";
+    time.style.zIndex = 4;
+
+    var powerCount = document.createElement('div')
+    powerCount.style.position = "fixed"
+    powerCount.innerText = "Power left:100%"
+    powerCount.style.color = "white"
+    powerCount.style.fontSize = 50;
+    powerCount.style.width = 360 + "px";
+    powerCount.style.height = 50 + "px";
+    powerCount.style.left = 50 + "px";
+    powerCount.style.top = 800 + "px";
+    powerCount.style.zIndex = 4;
+
+    var usageText = document.createElement('div')
+    usageText.style.position = "fixed"
+    usageText.innerText = "Usage:"
+    usageText.style.color = "white"
+    usageText.style.fontSize = 50;
+    usageText.style.width = 360 + "px";
+    usageText.style.height = 50 + "px";
+    usageText.style.left = 50 + "px";
+    usageText.style.top = 850 + "px";
+    usageText.style.zIndex = 4;
+
+    var usageBar1 = document.createElement('img')
+    usageBar1.id = "usage1"
+    usageBar1.style.position = "fixed"
+    usageBar1.src = "Fnaf1/usage1.png"
+    usageBar1.style.width = 40 + "px";
+    usageBar1.style.height = 46 + "px";
+    usageBar1.style.left = 195 + "px";
+    usageBar1.style.top = 860 + "px";
+    usageBar1.style.zIndex = 4;
+
+    var usageBar2 = document.createElement('img')
+    usageBar2.id = "usage2"
+    usageBar2.style.position = "fixed"
+    usageBar2.src = "Fnaf1/usage1.png"
+    usageBar2.style.visibility = "hidden"
+    usageBar2.style.width = 40 + "px";
+    usageBar2.style.height = 46 + "px";
+    usageBar2.style.left = 248 + "px";
+    usageBar2.style.top = 860 + "px";
+    usageBar2.style.zIndex = 4;
+
+    var usageBar3 = document.createElement('img')
+    usageBar3.id = "usage3"
+    usageBar3.style.position = "fixed"
+    usageBar3.src = "Fnaf1/usage2.png"
+    usageBar3.style.visibility = "hidden"
+    usageBar3.style.width = 40 + "px";
+    usageBar3.style.height = 46 + "px";
+    usageBar3.style.left = 300 + "px";
+    usageBar3.style.top = 860 + "px";
+    usageBar3.style.zIndex = 4;
+
+    var usageBar4 = document.createElement('img')
+    usageBar4.id = "usage4"
+    usageBar4.style.position = "fixed"
+    usageBar4.src = "Fnaf1/usage3.png"
+    usageBar4.style.visibility = "hidden"
+    usageBar4.style.width = 40 + "px";
+    usageBar4.style.height = 46 + "px";
+    usageBar4.style.left = 350 + "px";
+    usageBar4.style.top = 860 + "px";
+    usageBar4.style.zIndex = 4;
+
+    //Fix Time
+    var night = document.createElement('div')
+    night.style.position = "fixed"
+    night.innerText = "Night 1"
+    night.style.color = "white"
+    night.style.fontSize = 35;
+    night.style.top = 105 + "px";
+    night.style.width = 160 + "px";
+    night.style.height = 50 + "px";
+    night.style.left = 1780 + "px";
+    night.style.zIndex = 4;
+
+    var timeCurr = 12;
+    var power = 1000;
+    var powerloss = 1.3;
+    var barAmount = 1;
+    var monitorState = 0;
+    var currentCamPos = "1a"
+
+    var freddyMoveOppTime = 3000 // 3sec
+    var chicaMoveOppTime = 4000 // 4sec
+    var bonnieMoveOppTime = 4000 // 4sec
+    var foxyMoveOppTime = 4000 // 4sec
+
+    var freddyAILvl = 2
+    var chicaAILvl = 2
+    var bonnieAILvl = 2
+    var foxyAILvl = 2
+
+    var roomList = ["1a", "1b", "5", "7", "6", "2a", "2b", "4a", "4b", "1c", "3", "OFFICE"]
+
+    var freddyActive = false;
+
+    function BeginGameDesktop() {
+        document.body.style.background = "#000000";
+        document.getElementById("StartGame").style.visibility = "hidden";
+
+        var width = document.documentElement.scrollWidth;
+
+        function scroll(event) {
+            var x = event.clientX;
+            var xPercentage = x / screen.width / 8;
+            window.scrollTo(xPercentage * width, 0);
+        }
+
+        window.onmousemove = scroll;
+
+        document.body.appendChild(doorRightClosed)
+        document.body.appendChild(doorRightLight)
+        document.body.appendChild(doorLeftClosed)
+        document.body.appendChild(doorLeftLight)
+        document.body.appendChild(doorRightBttn)
+        document.body.appendChild(doorLeftBttn)
+        document.body.appendChild(fan)
+        document.body.appendChild(night)
+        document.body.appendChild(mainImg)
+        document.body.appendChild(time)
+        document.body.appendChild(powerCount)
+        document.body.appendChild(usageBar1)
+        document.body.appendChild(usageBar2)
+        document.body.appendChild(usageBar3)
+        document.body.appendChild(usageBar4)
+        document.body.appendChild(usageText)
+        document.body.appendChild(doorRightLit2)
+        document.body.appendChild(doorLeftLit)
+        document.body.appendChild(button)
+        document.body.appendChild(mainStatic)
+        document.body.appendChild(mainCam)
+        document.body.appendChild(mainMini)
+        document.body.appendChild(invisButton1)
+        document.body.appendChild(invisButton2)
+        document.body.appendChild(invisButton3)
+        document.body.appendChild(invisButton4)
+        document.body.appendChild(invisButton5)
+        document.body.appendChild(invisButton6)
+        document.body.appendChild(invisButton7)
+        document.body.appendChild(invisButton8)
+        document.body.appendChild(invisButton9)
+        document.body.appendChild(invisButton10)
+        document.body.appendChild(invisButton11)
+        document.body.appendChild(exitMonButton)
+        document.body.appendChild(freddy)
+        document.body.appendChild(bonnie)
+        document.body.appendChild(chica)
+        document.body.appendChild(foxy)
+
+        document.getElementById("ExitButton").onclick = function () { Monitor("forced") };
+
+        document.getElementById("invisButton1").onclick = function () { checkMonitorPos("1a") };
+        document.getElementById("invisButton2").onclick = function () { checkMonitorPos("1b") };
+        document.getElementById("invisButton3").onclick = function () { checkMonitorPos("5") };
+        document.getElementById("invisButton4").onclick = function () { checkMonitorPos("7") };
+        document.getElementById("invisButton5").onclick = function () { checkMonitorPos("1c") };
+        document.getElementById("invisButton6").onclick = function () { checkMonitorPos("3") };
+        document.getElementById("invisButton7").onclick = function () { checkMonitorPos("6") };
+        document.getElementById("invisButton8").onclick = function () { checkMonitorPos("2a") };
+        document.getElementById("invisButton9").onclick = function () { checkMonitorPos("4a") };
+        document.getElementById("invisButton10").onclick = function () { checkMonitorPos("2b") };
+        document.getElementById("invisButton11").onclick = function () { checkMonitorPos("4b") };
+
+        document.getElementById("RightBttn").onclick = function () { LightDoor("RightBttn") };
+
+        document.getElementById("LeftBttn").onclick = function () { LightDoor("LeftBttn") };
+
+        document.getElementById("Monitor").onmouseover = function () { Monitor("normal") };
+
+        document.getElementById("RightLight").onpointerdown = function () { LightDoor("RightLight") };
+        document.getElementById("RightLight").onpointerup = function () { UnlightDoor("RightLight") };
+        document.getElementById("RightLight").onmouseout = function () { UnlightDoor("RightLight") };
+
+        document.getElementById("LeftLight").onpointerdown = function () { LightDoor("LeftLight") };
+        document.getElementById("LeftLight").onpointerup = function () { UnlightDoor("LeftLight") };
+        document.getElementById("LeftLight").onmouseout = function () { UnlightDoor("LeftLight") };
+
+        FreddyAI()
+        ChicaAI()
+        BonnieAI()
+    }
+
+    function BeginGameLaptop() {
+        document.body.style.background = "#000000";
+        document.getElementById("StartGame").style.visibility = "hidden";
+
+        var width = document.documentElement.scrollWidth;
+
+        function scroll(event) {
+            var x = event.clientX;
+            var xPercentage = x / screen.width / 8;
+            window.scrollTo(xPercentage * width, 0);
+        }
+
+        night.style.top = 110 + "px";
+        night.style.left = 1650 + "px";
+        time.style.left = 1630 + "px";
+        powerCount.style.left = 120 + "px";
+        usageBar1.style.left = 265 + "px";
+        usageBar2.style.left = 315 + "px";
+        usageBar3.style.left = 365 + "px";
+        usageBar4.style.left = 420 + "px";
+        usageText.style.left = 120 + "px";
+
+        document.body.appendChild(doorRightClosed)
+        document.body.appendChild(doorLeftClosed)
+        document.body.appendChild(doorLeftLit)
+        document.body.appendChild(doorLeftLight)
+        document.body.appendChild(doorRightLight)
+        document.body.appendChild(doorRightBttn)
+        document.body.appendChild(doorLeftBttn)
+        document.body.appendChild(fan)
+        document.body.appendChild(night)
+        document.body.appendChild(button)
+        document.body.appendChild(mainImg)
+        document.body.appendChild(time)
+        document.body.appendChild(powerCount)
+        document.body.appendChild(usageBar1)
+        document.body.appendChild(usageBar2)
+        document.body.appendChild(usageBar3)
+        document.body.appendChild(usageBar4)
+        document.body.appendChild(usageText)
+        document.body.appendChild(doorRightLit2)
+        document.body.appendChild(doorLeftLit)
+
+        document.getElementById("RightBttn").onclick = function () { LightDoor("RightBttn") };
+
+        document.getElementById("LeftBttn").onclick = function () { LightDoor("LeftBttn") };
+
+        document.getElementById("RightLight").onpointerdown = function () { LightDoor("RightLight") };
+        document.getElementById("RightLight").onpointerup = function () { setTimeout(UnlightDoor("RightLight"), 200) };
+        document.getElementById("RightLight").onmouseout = function () { setTimeout(UnlightDoor("RightLight"), 200) };
+
+        document.getElementById("LeftLight").onpointerdown = function () { LightDoor("LeftLight") };
+        document.getElementById("LeftLight").onpointerup = function () { setTimeout(UnlightDoor("LeftLight"), 200) };
+        document.getElementById("LeftLight").onmouseout = function () { setTimeout(UnlightDoor("LeftLight"), 200) };
+    }
+    function UpdateTime() {
+        if (timeCurr == 12) {
+            timeCurr = 1;
+        }
+        else if (timeCurr != 6 && power >= 0) {
+            timeCurr++;
+        }
+        if (timeCurr == 6) {
+            powerloss = 0;
+            timer.innerHTML = "WON"
+        }
+        time.innerHTML = timeCurr + " AM"
+
+        if (timeCurr == 2) {
+            bonnieAILvl++;
+        }
+        if (timeCurr == 3) {
+            freddyActive = true
+            //Testing ^
+            bonnieAILvl++;
+            chicaAILvl++;
+            foxyAILvl++;
+        }
+        if (timeCurr == 4) {
+            bonnieAILvl++;
+            chicaAILvl++;
+            foxyAILvl++;
+        }
+    }
+
+    function FreddyAI() {
+        if (freddyActive == false) {
+            setTimeout(() => {
+                //if (currentCamImage == Freddy'sCamImage)
+                //{
+
+                //}
+                //if (Freddy'sCamImage == 2b or 4b)
+                //{
+                //AnimatronicMoveArea(11, freddy)
+                //}
+                //else
+                //{
+                AnimatronicMoveArea(10, freddy, freddyAILvl)
+                //}
+                FreddyAI()
+            }, freddyMoveOppTime)
+        }
+    }
+
+    function ChicaAI() {
+        setTimeout(() => {
+        //if (currentCamImage == Freddy'sCamImage)
+        //{
+
+        //}
+        //if (Freddy'sCamImage == 2b or 4b)
+        //{
+            //AnimatronicMoveArea(11, freddy)
+        //}
+        //else
+        //{
+            AnimatronicMoveArea(10, chica, chicaAILvl)
+        //}
+        ChicaAI()
+        }, chicaMoveOppTime)
+    }
+
+    function BonnieAI() {
+        setTimeout(() => {
+        //if (currentCamImage == Freddy'sCamImage)
+        //{
+
+        //}
+        //if (Freddy'sCamImage == 2b or 4b)
+        //{
+            //AnimatronicMoveArea(11, freddy)
+        //}
+        //else
+        //{
+            AnimatronicMoveArea(10, bonnie, bonnieAILvl)
+        //}
+        BonnieAI()
+        }, bonnieMoveOppTime)
+    }
+
+    function AnimatronicMoveArea(amount, animatronic, AILvl) {
+        var randomNum = Math.floor(Math.random() * 20);
+        console.log(randomNum)
+        if (randomNum > AILvl) {
+            return;
+        }
+        else if (randomNum <= AILvl) {
+            let tempRooms = []
+            for (let i = 0; i < amount; i++) {
+                tempRooms.push(roomList[i])
+            }
+            console.log(tempRooms)
+            var randomRoomPicked = Math.floor(Math.random() * tempRooms.length);
+            console.log(randomRoomPicked)
+            var pickedRoom = tempRooms[randomRoomPicked]
+            console.log(pickedRoom)
+            if (pickedRoom == "1a") {
+                animatronic.style.left = 1696 + "px"
+                animatronic.style.top = 680 + "px"
+            }
+            if (pickedRoom == "1b") {
+                animatronic.style.left = 1680 + "px"
+                animatronic.style.top = 721 + "px"
+            }
+            if (pickedRoom == "5") {
+                animatronic.style.left = 1600 + "px"
+                animatronic.style.top = 741 + "px"
+            }
+            if (pickedRoom == "7") {
+                animatronic.style.left = 1850 + "px"
+                animatronic.style.top = 741 + "px"
+            }
+            if (pickedRoom == "1c") {
+                return
+            }
+            if (pickedRoom == "3") {
+                animatronic.style.left = 1633 + "px"
+                animatronic.style.top = 852 + "px"
+            }
+            if (pickedRoom == "6") {
+                animatronic.style.left = 1843 + "px"
+                animatronic.style.top = 842 + "px"
+            }
+            if (pickedRoom == "2a") {
+                animatronic.style.left = 1695 + "px"
+                animatronic.style.top = 868 + "px"
+            }
+            if (pickedRoom == "4a") {
+                animatronic.style.left = 1775 + "px"
+                animatronic.style.top = 868 + "px"
+            }
+            if (pickedRoom == "2b") {
+                animatronic.style.left = 1695 + "px"
+                animatronic.style.top = 895 + "px"
+            }
+            if (pickedRoom == "4b") {
+                animatronic.style.left = 1775 + "px"
+                animatronic.style.top = 895 + "px"
+            }
+            //Animatronic Check
+            if (animatronic == freddy) {
+                console.log("eee")
+                freddy.style.left -= 20 + "px";
+            }
+            if (animatronic == chica) {
+                chica.style.left += 20 + "px";
+            }
+        }
+    }
+
+
+    function UpdatePower() {
+        if (timeCurr != 6 && power <= 0) {
+            powerloss = 0;
+        }
+        if (barAmount == 1 && powerloss !== 0) {
+            document.getElementById("usage1").style.visibility = "visible"
+            document.getElementById("usage2").style.visibility = "hidden"
+            document.getElementById("usage3").style.visibility = "hidden"
+            document.getElementById("usage4").style.visibility = "hidden"
+            powerloss = 1.3;
+        }
+        if (barAmount == 2 && powerloss !== 0) {
+            document.getElementById("usage1").style.visibility = "visible"
+            document.getElementById("usage2").style.visibility = "visible"
+            document.getElementById("usage3").style.visibility = "hidden"
+            document.getElementById("usage4").style.visibility = "hidden"
+            powerloss = 2.2;
+        }
+        if (barAmount == 3 && powerloss !== 0) {
+            document.getElementById("usage1").style.visibility = "visible"
+            document.getElementById("usage2").style.visibility = "visible"
+            document.getElementById("usage3").style.visibility = "visible"
+            document.getElementById("usage4").style.visibility = "hidden"
+            powerloss = 3.2;
+        }
+        if (barAmount == 4 && powerloss !== 0) {
+            document.getElementById("usage1").style.visibility = "visible"
+            document.getElementById("usage2").style.visibility = "visible"
+            document.getElementById("usage3").style.visibility = "visible"
+            document.getElementById("usage4").style.visibility = "visible"
+            powerloss = 4.2;
+        }
+
+        power -= powerloss
+        powerCount.innerText = "Power left:" + (Math.abs((power / 10).toFixed(0)) + "%");
+    }
+
+    function LightDoor(doorside) {
+        if (doorside == "RightLight" && document.getElementById("RightLight").src.match("Fnaf1/doorRightLight.png")) {
+            doorRightLight.src = "Fnaf1/doorRightLightOn.png"
+            barAmount++;
+            doorRightLight.style.width = 60 + "px";
+            doorRightLight.style.height = 100 + "px";
+            doorRightLight.style.left = 2005 + "px";
+            doorRightLight.style.top = 458 + "px";
+            doorRightLit2.style.visibility = "visible"
+        }
+        if (doorside == "LeftLight" && document.getElementById("LeftLight").src.match("Fnaf1/doorLeftLight.png")) {
+            doorLeftLight.src = "Fnaf1/doorLeftLightOn.png"
+            barAmount++;
+            doorLeftLight.style.width = 62 + "px";
+            doorLeftLight.style.height = 80 + "px";
+            doorLeftLight.style.left = 26 + "px";
+            doorLeftLit.style.visibility = "visible";
+        }
+        if (doorside == "RightBttn" && document.getElementById("RightBttn").src.match("Fnaf1/doorRightBttn.png")) {
+            barAmount++;
+            doorRightBttn.src = "Fnaf1/doorRightGreen.png"
+            //doorRightLight.style.width = 60 + "px";
+            //doorRightLight.style.height = 100 + "px";
+            //doorRightLight.style.left = 2005 + "px";
+            //doorRightLight.style.top = 458 + "px";
+            doorRightClosed.style.visibility = "visible"
+            return;
+        }
+        if (doorside == "RightBttn" && document.getElementById("RightBttn").src.match("Fnaf1/doorRightGreen.png")) {
+            barAmount--;
+            doorRightBttn.src = "Fnaf1/doorRightBttn.png"
+            //doorRightLight.style.width = 60 + "px";
+            //doorRightLight.style.height = 100 + "px";
+            //doorRightLight.style.left = 2005 + "px";
+            //doorRightLight.style.top = 458 + "px";
+            doorRightClosed.style.visibility = "hidden"
+            return;
+        }
+        //Sometime later add if animinotrono is there or not
+        if (doorside == "LeftBttn" && document.getElementById("LeftBttn").src.match("Fnaf1/doorLeftBttn.png")) {
+            barAmount++;
+            doorLeftBttn.src = "Fnaf1/doorLeftGreen.png"
+            //doorLeftLight.style.width = 62 + "px";
+            //doorLeftLight.style.height = 80 + "px";
+            //doorLeftLight.style.left = 26 + "px";
+            doorLeftClosed.style.visibility = "visible";
+            return;
+        }
+        if (doorside == "LeftBttn" && document.getElementById("LeftBttn").src.match("Fnaf1/doorLeftGreen.png")) {
+            barAmount--;
+            doorLeftBttn.src = "Fnaf1/doorLeftBttn.png"
+            //doorLeftLight.style.width = 62 + "px";
+            //doorLeftLight.style.height = 80 + "px";
+            //doorLeftLight.style.left = 26 + "px";
+            doorLeftClosed.style.visibility = "hidden";
+            return;
+        }
+    }
+
+    function UnlightDoor(doorside) {
+        if (doorside == "RightLight" && document.getElementById("RightLight").src.match("Fnaf1/doorRightLightOn.png")) {
+            doorRightLight.src = "Fnaf1/doorRightLight.png"
+            barAmount--;
+            doorRightLight.style.height = 90 + "px";
+            doorRightLit2.style.visibility = "hidden"
+        }
+        if (doorside == "LeftLight" && document.getElementById("LeftLight").src.match("Fnaf1/doorLeftLightOn.png")) {
+            doorLeftLight.src = "Fnaf1/doorLeftLight.png"
+            barAmount--;
+            doorLeftLight.style.width = 64 + "px";
+            doorLeftLight.style.height = 85 + "px";
+            doorLeftLight.style.left = 22 + "px";
+            doorLeftLit.style.visibility = "hidden";
+        }
+    }
+
+    function Monitor(check) {
+        //FIX
+        if (monitorState == 0 && check == "normal") {
+            barAmount = 1;
+            window.onmousemove = "";
+            window.scrollTo(0, 0)
+            var monitorGIF = document.createElement("img");
+            monitorGIF.src = "Fnaf1/CamUp.gif"
+            monitorGIF.style.width = 1920 + "px";
+            monitorGIF.style.height = 1000 + "px";
+            monitorGIF.style.left = 0 + "px";
+            monitorGIF.style.top = 0 + "px";
+            monitorGIF.style.position = "absolute";
+            monitorGIF.style.zIndex = 3;
+            monitorGIF.id = "MonGIFUpTemp"
+            document.body.appendChild(monitorGIF)
+            setTimeout(function () {
+                document.getElementById("MonGIFUpTemp").remove()
+                var monitorFlat = document.createElement("img");
+                monitorFlat.src = "Fnaf1/CamOverhead.png";
+                monitorFlat.style.width = 1920 + "px";
+                monitorFlat.style.height = 1000 + "px";
+                monitorFlat.style.left = 0 + "px";
+                monitorFlat.style.top = 0 + "px";
+                monitorFlat.style.position = "absolute";
+                monitorFlat.style.zIndex = 2;
+                monitorFlat.id = "MonFlatUp"
+                document.body.appendChild(monitorFlat)
+                //Code for monitor
+                mainStatic.style.visibility = "visible"
+                freddy.style.visibility = "visible";
+                chica.style.visibility = "visible";
+                bonnie.style.visibility = "visible";
+                foxy.style.visibility = "visible";
+                //Continue
+                document.getElementById("CamMini").style.visibility = "visible"
+                document.getElementById("CamMainImage").style.visibility = "visible"
+                checkMonitorPos(currentCamPos)
+                monitorState++;
+                return;
+            }, 500)
+        }
+        if (monitorState == 1 && check == "normal") {
+            barAmount = 0;
+            checkMonitorPos(currentCamPos)
+            mainStatic.style.visibility = "hidden"
+            freddy.style.visibility = "hidden";
+            chica.style.visibility = "hidden";
+            bonnie.style.visibility = "hidden";
+            foxy.style.visibility = "hidden";
+            document.getElementById("MonFlatUp").remove()
+            var monitorGIF2 = document.createElement("img");
+            monitorGIF2.src = "Fnaf1/CamDown.gif"
+            monitorGIF2.style.width = 1920 + "px";
+            monitorGIF2.style.height = 1000 + "px";
+            monitorGIF2.style.left = 0 + "px";
+            monitorGIF2.style.top = 0 + "px";
+            monitorGIF2.style.position = "absolute";
+            monitorGIF2.style.zIndex = 3;
+            monitorGIF2.id = "MonGIFDownTemp"
+            document.body.appendChild(monitorGIF2)
+            document.getElementById("CamMini").style.visibility = "hidden"
+            document.getElementById("CamMainImage").style.visibility = "hidden"
+            setTimeout(function () {
+                document.getElementById("MonGIFDownTemp").remove()
+                var width = document.documentElement.scrollWidth;
+
+                function scroll(event) {
+                    var x = event.clientX;
+                    var xPercentage = x / screen.width / 8;
+                    window.scrollTo(xPercentage * width, 0);
+                }
+
+                window.onmousemove = scroll;
+                //Code for monitor
+                mainStatic.style.visibility = "hidden"
+                //Continue
+                monitorState--;
+                return;
+            }, 500)
+        }
+        if (check == "forced") {
+            barAmount = 0;
+            checkMonitorPos(currentCamPos)
+            mainStatic.style.visibility = "hidden"
+            document.getElementById("MonFlatUp").remove()
+            var monitorGIF2 = document.createElement("img");
+            monitorGIF2.src = "Fnaf1/CamDown.gif"
+            monitorGIF2.style.width = 1920 + "px";
+            monitorGIF2.style.height = 1000 + "px";
+            monitorGIF2.style.left = 0 + "px";
+            monitorGIF2.style.top = 0 + "px";
+            monitorGIF2.style.position = "absolute";
+            monitorGIF2.style.zIndex = 3;
+            monitorGIF2.id = "MonGIFDownTemp"
+            document.body.appendChild(monitorGIF2)
+            document.getElementById("CamMini").style.visibility = "hidden"
+            document.getElementById("CamMainImage").style.visibility = "hidden"
+            setTimeout(function () {
+                document.getElementById("MonGIFDownTemp").remove()
+                var width = document.documentElement.scrollWidth;
+
+                function scroll(event) {
+                    var x = event.clientX;
+                    var xPercentage = x / screen.width / 8;
+                    window.scrollTo(xPercentage * width, 0);
+                }
+
+                window.onmousemove = scroll;
+                //Code for monitor
+                mainStatic.style.visibility = "hidden"
+                //Continue
+                monitorState--;
+                return;
+            }, 500)
+        }
+    }
+
+    function checkMonitorPos(pos) {
+        document.getElementById("CamMini").src = "Fnaf1/Cam" + pos + ".png";
+        document.getElementById("CamMainImage").src = "Fnaf1/Cam" + pos + "Image.png";
+    }
+
+    setInterval(UpdateTime, 90000)
+    setInterval(UpdatePower, 1000)
+</script>
+
+</html>
