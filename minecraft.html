@@ -10,14 +10,14 @@
 
 <div id="Whole Box" style="width: 1400 px; height: 800px; border: 2px solid black; padding: 15px;">
     <div id="Main Screen">
-        Update Notes: Added Crafting Table, Sticks and 4 new Craftables,
-        Updated Hunger and Health Loss amounts for Mining and Hunting, Added Forage Selector,
-        Added End Sim Button
+        Update Notes: Cleaned up 83 lines of repitetive code, Added constant hunger loss depending on how long you live,
+        Day Counter, Day's Lived Highscore System
         <br>
         <br>
         <button id="Start" onclick="starting()">Start Sim</button>
         <button id="End" onclick="ending()">End Sim</button>
         <button id="Tutorial" onclick="tutorial()">Tutorial (Suggested)</button>
+        <button id="Clear" onclick="Clear()">Clear Highscore</button>
     </div>
     <div id="ConsoleBox" style="border: 2px solid red; padding: 10px; margin-top: 10px;">
         <text id="QuestionText">...</text>
@@ -26,6 +26,16 @@
         <input id="Input2" style="display: none"></input>
         <input id="Input3" style="display: none"></input>
         <input id="Input4" style="display: none"></input>
+        <div id="backgroundBoxBorder"
+            style="border: thick double grey; width: 354.5px; height: 90px; position: absolute; left: 873.5px; top: 142.5px; z-index: 2">
+        </div>
+        <div id="backgroundBox"
+            style="background-color: black; width: 362px; height: 100px; position: absolute; left: 873.5px; top: 142.5px">
+        </div>
+        <div id="dayHighScoreCount" style="position: absolute; color: white; left: 889px; font-size: 25px; top: 160px">
+            Day's Lived Highscore: 0</div>
+        <div id="dayCount" style="position: absolute; color: white; left: 1010px; font-size: 25px; top: 200px">Day
+            Count: </div>
         <button onclick="Back()">Back To Choices</button>
         <br>
         <img id="MainImage" src="Mini Minecraft 2/Minecraft.png" alt="Home Img"
@@ -91,21 +101,28 @@
 
 <script>
 
-    function ending()
-    {
+    var dayCount = 0;
+
+    //Original Script Length 973 lines (pure code)
+    //Updated Script Length (pure code and comments)
+
+    function ending() {
+        if (dayCount > localStorage.getItem("HighscoreDayCount")) {
+            localStorage.setItem("HighscoreDayCount", dayCount)
+        }
         window.location.href = window.location.href;
     }
 
     var Hunger = []
 
     for (let i = 0; i < 9; i++) {
-        Hunger.push(document.getElementById(`Hunger${i+1}Image`))
+        Hunger.push(document.getElementById(`Hunger${i + 1}Image`))
     }
 
     var Health = []
 
     for (let i = 0; i < 9; i++) {
-        Health.push(document.getElementById(`Health${i+1}Image`))
+        Health.push(document.getElementById(`Health${i + 1}Image`))
     }
 
     var started = false;
@@ -167,13 +184,9 @@
 
     //Scavenging
     function mine() {
+        dayCount++
         document.getElementById("MainImage").src = "Mini Minecraft 2/MineImage.png";
-        document.getElementById("Input").value = "";
-        document.getElementById("WolfImage").style.display = "none";
-        document.getElementById("ZombieImage").style.display = "none";
-        document.getElementById("CowImage").style.display = "none";
-        document.getElementById("SheepImage").style.display = "none";
-        document.getElementById("ChickenImage").style.display = "none";
+        Wipe([], ["WolfImage", "ZombieImage", "CowImage", "SheepImage", "ChickenImage"], ["Input"], [], [])
         player = []
         chest = []
         UpdateLists()
@@ -192,36 +205,29 @@
         if (random <= 15 && hasWoodenPickaxe == true && hasStonePickaxe == true && hasIronPickaxe == true && objectFound != "Cobblestone") {
             hunger -= 0;
         }
-        //console.log(chance)
         if (objectFound == "Stone") {
             cobblestone += 1
-            console.log("+1 cobblestone")
         }
         if (objectFound == "Coal") {
             coal += 1
-            console.log("+1 coal")
         }
         if (objectFound == "Iron") {
             ironore += 1
-            console.log("+1 iron-ore")
         }
         if (objectFound == "Diamond" && chance == 1) {
             diamond += 1
-            console.log("+1 diamond")
         }
         if (hasIronPickaxe == true && objectFound == "Diamond" && chance >= 8) {
             diamond += 1
-            console.log("+1 diamond")
         }
     }
     function forage() {
+        var random = Math.random() * 100
+        if (random > 75) {
+            dayCount++
+        }
         document.getElementById("MainImage").src = "Mini Minecraft 2/ForestImage.png";
-        document.getElementById("Input").value = "";
-        document.getElementById("WolfImage").style.display = "none";
-        document.getElementById("ZombieImage").style.display = "none";
-        document.getElementById("CowImage").style.display = "none";
-        document.getElementById("SheepImage").style.display = "none";
-        document.getElementById("ChickenImage").style.display = "none";
+        Wipe([], ["WolfImage", "ZombieImage", "CowImage", "SheepImage", "ChickenImage"], ["Input"], [], [])
         player = []
         chest = []
         var random = Math.random() * 100;
@@ -232,36 +238,26 @@
         var objectFound = scavengeableItems[Math.floor(Math.random() * scavengeableItems.length)]
         if (objectFound == "Wood") {
             woodplanks += 1
-            console.log("+1 plank")
         }
         if (objectFound == "Sticks") {
             sticks += 1
-            console.log("+1 plank")
         }
     }
     //Hunting
     function hunt() {
-        document.getElementById("Input").value = "";
+        dayCount++;
+        Wipe([], ["WolfImage", "ZombieImage", "CowImage", "SheepImage", "ChickenImage"], ["Input"], [], [])
         document.getElementById("MainImage").src = "Mini Minecraft 2/HuntImage.png";
-        document.getElementById("WolfImage").style.display = "none";
-        document.getElementById("ZombieImage").style.display = "none";
-        document.getElementById("CowImage").style.display = "none";
-        document.getElementById("SheepImage").style.display = "none";
-        document.getElementById("ChickenImage").style.display = "none";
         if (hasWoodenSword == false && hasStoneSword == false && hasIronSword == false) {
-            console.log("Changed")
             hunger -= 1.5
         }
         if (hasWoodenSword == true && hasStoneSword == false && hasIronSword == false) {
-            console.log("Changed")
             hunger -= 1
         }
         if (hasWoodenSword == true && hasStoneSword == true && hasIronSword == false) {
-            console.log("Changed")
             hunger -= 0.5
         }
         if (hasWoodenSword == true && hasStoneSword == true && hasIronSword == true) {
-            console.log("Changed")
             hunger -= 0
         }
         var thingFound = huntableItems[Math.floor(Math.random() * huntableItems.length)];
@@ -313,11 +309,7 @@
 
     //Home FIX FIX FIX FIX
     function home() {
-        document.getElementById("ZombieImage").style.display = "none";
-        document.getElementById("WolfImage").style.display = "none";
-        document.getElementById("CowImage").style.display = "none";
-        document.getElementById("SheepImage").style.display = "none";
-        document.getElementById("ChickenImage").style.display = "none";
+        Wipe([], ["ZombieImage", "WolfImage", "CowImage", "SheepImage", "ChickenImage"], [], [], [])
         player = [] //Clear the list
         chest = []//Clear the list
         document.getElementById("MainImage").src = "Mini Minecraft 2/HomeImage.png";
@@ -325,8 +317,7 @@
         document.getElementById("Input").style.display = "none";
         document.getElementById("Input2").style.display = "";
         if (document.getElementById("Input2").value == "1" || document.getElementById("Input2").value == "11") {
-            document.getElementById("Input2").style.display = "none";
-            document.getElementById("Input3").style.display = "";
+            Wipe(["Input3"], ["Input2"], [], [], [])
             document.getElementById("PlayerInventory").innerHTML = "Player: " + player.toString()
             document.getElementById("ChestInventory").innerHTML = "Chest: " + chest.toString()
             var playerAnswer = document.getElementById("QuestionText").innerHTML = ("What do you want to transfer? ")
@@ -404,8 +395,7 @@
         if (document.getElementById("Input2").value == "2" || document.getElementById("Input2").value == "22") {
             document.getElementById("PlayerInventory").innerHTML = "Player: " + player.toString()
             document.getElementById("ChestInventory").innerHTML = "Chest: " + chest.toString()
-            document.getElementById("Input2").style.display = "none";
-            document.getElementById("Input3").style.display = "";
+            Wipe(["Input3"], ["Input2"], [], [], [])
             var playerAnswer = document.getElementById("QuestionText").innerHTML = ("What do you want to transfer? ")
             if (document.getElementById("Input3").value == "Cobblestone" || document.getElementById("Input3").value == "cobblestone") {
                 if (chest_cobblestone != 0) {
@@ -480,8 +470,7 @@
             }
         }
         if (document.getElementById("Input2").value == "3" || document.getElementById("Input2").value == "33") {
-            document.getElementById("Input2").style.display = "none";
-            document.getElementById("Input3").style.display = "";
+            Wipe(["Input3"], ["Input2"], [], [], [])
             UpdateLists()
             var playerDroppingAnswer = document.getElementById("QuestionText").innerHTML = ("What do you want to drop? ")
             var playerDropset = player //List equals player list
@@ -490,106 +479,75 @@
             }
         }
         if (document.getElementById("Input2").value == "4") {
+            Wipe(["Input3"], ["Input2"], [], [], [])
             document.getElementById("Input2").style.display = "none";
             document.getElementById("Input3").style.display = "";
             UpdateLists()
-            if (hasCraftingTable == false)
-            {
+            if (hasCraftingTable == false) {
                 var playerCraftAnswer = document.getElementById("QuestionText").innerHTML = ("Crafting Table(1), Sticks(2)? ")
             }
-            if (woodplanks != 0 && hasCraftingTable == true)
-            {
+            if (woodplanks != 0 && hasCraftingTable == true) {
                 var playerCraftAnswer = document.getElementById("QuestionText").innerHTML = ("Crafting Table (1), Sticks(2), Wood Sword(3), Wood Pickaxe(4)? ")
             }
-            if (cobblestone != 0 && hasCraftingTable == true)
-            {
+            if (cobblestone != 0 && hasCraftingTable == true) {
                 var playerCraftAnswer = document.getElementById("QuestionText").innerHTML = ("Crafting Table (1), Sticks(2), Wood Sword(3), Wood Pickaxe(4), Stone Sword(5), Stone Pickaxe(6), Furnace(7)? ")
             }
-            if (ironore != 0 && hasCraftingTable == true)
-            {
+            if (ironore != 0 && hasCraftingTable == true) {
                 var playerCraftAnswer = document.getElementById("QuestionText").innerHTML = ("Crafting Table (1), Sticks(2), Wood Sword(3), Wood Pickaxe(4), Stone Sword(5), Stone Pickaxe(6), Furnace(7), Iron Sword(8), Iron Pickaxe(9)? ")
             }
-            if (document.getElementById("Input3").value == "1" && woodplanks >= 4)
-            {
+            if (document.getElementById("Input3").value == "1" && woodplanks >= 4) {
                 if (hasCraftingTable == false) {
                     woodplanks -= 4
                     hasCraftingTable = true
-                    document.getElementById("Input3").style.display = "none";
-                    document.getElementById("Input2").style.display = "";
+                    Wipe(["Input2"], ["Input3"], ["Input2", "Input3"], [], [])
                     document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
-                    document.getElementById("Input2").value = "";
-                    document.getElementById("Input3").value = "";
                     UpdateLists()
                 }
             }
-            if (document.getElementById("Input3").value == "2" && woodplanks >= 2)
-            {
+            if (document.getElementById("Input3").value == "2" && woodplanks >= 2) {
                 woodplanks -= 2
                 sticks += 4;
-                document.getElementById("Input3").style.display = "none";
-                document.getElementById("Input2").style.display = "";
+                Wipe(["Input2"], ["Input3"], ["Input2", "Input3"], [], [])
                 document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
-                document.getElementById("Input2").value = "";
-                document.getElementById("Input3").value = "";
                 UpdateLists()
             }
-            if (document.getElementById("Input3").value == "3" && woodplanks >= 2 && sticks >= 1 && hasCraftingTable == true)
-            {
-                if (hasWoodenSword == false) 
-                {
+            if (document.getElementById("Input3").value == "3" && woodplanks >= 2 && sticks >= 1 && hasCraftingTable == true) {
+                if (hasWoodenSword == false) {
                     woodplanks -= 2
                     sticks -= 1;
                     hasWoodenSword = true;
-                    document.getElementById("Input3").style.display = "none";
-                    document.getElementById("Input2").style.display = "";
+                    Wipe(["Input2"], ["Input3"], ["Input2", "Input3"], [], [])
                     document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
-                    document.getElementById("Input2").value = "";
-                    document.getElementById("Input3").value = "";
                     UpdateLists()
                 }
             }
-            if (document.getElementById("Input3").value == "4" && woodplanks >= 3 && sticks >= 2 && hasCraftingTable == true)
-            {
-                if (hasWoodenPickaxe == false) 
-                {
+            if (document.getElementById("Input3").value == "4" && woodplanks >= 3 && sticks >= 2 && hasCraftingTable == true) {
+                if (hasWoodenPickaxe == false) {
                     woodplanks -= 3;
                     sticks -= 2;
                     hasWoodenPickaxe = true;
-                    document.getElementById("Input3").style.display = "none";
-                    document.getElementById("Input2").style.display = "";
+                    Wipe(["Input2"], ["Input3"], ["Input2", "Input3"], [], [])
                     document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
-                    document.getElementById("Input2").value = "";
-                    document.getElementById("Input3").value = "";
                     UpdateLists()
                 }
             }
-            if (document.getElementById("Input3").value == "5" && cobblestone >= 2 && sticks >= 1 && hasCraftingTable == true)
-            {
-                if (hasStoneSword == false) 
-                {
+            if (document.getElementById("Input3").value == "5" && cobblestone >= 2 && sticks >= 1 && hasCraftingTable == true) {
+                if (hasStoneSword == false) {
                     cobblestone -= 2;
                     sticks -= 1;
                     hasStoneSword = true;
-                    document.getElementById("Input3").style.display = "none";
-                    document.getElementById("Input2").style.display = "";
+                    Wipe(["Input2"], ["Input3"], ["Input2", "Input3"], [], [])
                     document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
-                    document.getElementById("Input2").value = "";
-                    document.getElementById("Input3").value = "";
                     UpdateLists()
                 }
             }
-            if (document.getElementById("Input3").value == "6" && cobblestone >= 3 && sticks >= 2 && hasCraftingTable == true)
-            {
-                if (hasStonePickaxe == false) 
-                {
+            if (document.getElementById("Input3").value == "6" && cobblestone >= 3 && sticks >= 2 && hasCraftingTable == true) {
+                if (hasStonePickaxe == false) {
                     cobblestone -= 3;
                     sticks -= 2;
                     hasStonePickaxe = true;
-                    document.getElementById("Input3").style.display = "none";
-                    document.getElementById("Input2").style.display = "";
+                    Wipe(["Input2"], ["Input3"], ["Input2", "Input3"], [], [])
                     document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
-                    document.getElementById("Input2").value = "";
-                    document.getElementById("Input3").value = "";
                     UpdateLists()
                 }
             }
@@ -597,11 +555,8 @@
                 if (hasFurnace == false) {
                     cobblestone -= 8
                     hasFurnace = true
-                    document.getElementById("Input3").style.display = "none";
-                    document.getElementById("Input2").style.display = "";
+                    Wipe(["Input2"], ["Input3"], ["Input2", "Input3"], [], [])
                     document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
-                    document.getElementById("Input2").value = "";
-                    document.getElementById("Input3").value = "";
                     UpdateLists()
                 }
             }
@@ -609,12 +564,9 @@
                 if (hasIronSword == false) {
                     hasIronSword = true
                     ironore -= 2
-                    woodplanks -= 1
-                    document.getElementById("Input3").style.display = "none";
-                    document.getElementById("Input2").style.display = "";
+                    sticks -= 1
+                    Wipe(["Input2"], ["Input3"], ["Input2", "Input3"], [], [])
                     document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
-                    document.getElementById("Input2").value = "";
-                    document.getElementById("Input3").value = "";
                     UpdateLists()
                 }
             }
@@ -622,12 +574,9 @@
                 if (hasIronPickaxe == false) {
                     hasIronPickaxe = true
                     ironore -= 3
-                    woodplanks -= 2
-                    document.getElementById("Input3").style.display = "none";
-                    document.getElementById("Input2").style.display = "";
+                    sticks -= 2
+                    Wipe(["Input2"], ["Input3"], ["Input2", "Input3"], [], [])
                     document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
-                    document.getElementById("Input2").value = "";
-                    document.getElementById("Input3").value = "";
                     UpdateLists()
                 }
             }
@@ -636,6 +585,7 @@
             }*/
         }
         if (document.getElementById("Input2").value == "5" || document.getElementById("Input2").value == "55") {
+            Wipe(["Input3"], ["Input2"], [], [], [])
             document.getElementById("Input2").style.display = "none";
             document.getElementById("Input3").style.display = "";
             if (health > 9) {
@@ -705,30 +655,7 @@
             }
             if (document.getElementById("Input3").value == "1" && hasFurnace !== false) {
                 coalAmount = (mutton + beef + rawchicken) / 8
-                if (coalAmount < 1) {
-                    coalAmount = 1
-                }
-                if (coalAmount < 2 && coalAmount > 1) {
-                    coalAmount = 2
-                }
-                if (coalAmount < 3 && coalAmount > 2) {
-                    coalAmount = 3
-                }
-                if (coalAmount < 4 && coalAmount > 3) {
-                    coalAmount = 4
-                }
-                if (coalAmount < 5 && coalAmount > 4) {
-                    coalAmount = 5
-                }
-                if (coalAmount < 6 && coalAmount > 5) {
-                    coalAmount = 6
-                }
-                if (coalAmount < 7 && coalAmount > 6) {
-                    coalAmount = 7
-                }
-                if (coalAmount < 8 && coalAmount > 7) {
-                    coalAmount = 8
-                }
+                coalAmount = Math.ceil(coalAmount)
                 if (coal < coalAmount) {
                     console.log("Not enough coal!")
                 }
@@ -745,16 +672,12 @@
                         mutton = 0
                         beef = 0
                         rawchicken = 0
-                        document.getElementById("Input4").style.display = "none";
-                        document.getElementById("Input3").style.display = "";
-                        document.getElementById("Input3").value = "";
+                        Wipe(["Input3"], ["Input4"], ["Input3"], [], [])
                         UpdateLists()
                         document.getElementById("Input4").value = "";
                     }
                     if (document.getElementById("Input4").value == "no" || document.getElementById("Input4").value == "No") {
-                        document.getElementById("Input4").style.display = "none";
-                        document.getElementById("Input3").style.display = "";
-                        document.getElementById("Input3").value = "";
+                        Wipe(["Input3"], ["Input4"], ["Input3"], [], [])
                         UpdateLists()
                         document.getElementById("Input4").value = "";
                     }
@@ -763,7 +686,7 @@
             HealthandHungerUpdate()
             UpdateLists()
         }
-        
+
 
         else {
             console.log("Invalid Answer or Not In Inventory")
@@ -772,11 +695,11 @@
 
     function starting() {
         started = true;
-        document.getElementById("MainImage").style.visibility = "visible"
-        document.getElementById("End").style.visibility = "visible"
-        if (document.getElementById("MainText"))
-        {
-            console.log("HEee")
+        if (localStorage.getItem("HighscoreDayCount") != null) {
+            document.getElementById("dayHighScoreCount").innerHTML = "Day's Lived Highscore: " + localStorage.getItem("HighscoreDayCount")
+        }
+        Wipe([], [], [], ["MainImage", "End"], [])
+        if (document.getElementById("MainText")) {
             document.getElementById("MainText").style.visibility = "hidden"
         }
         //Disable start box
@@ -875,8 +798,7 @@
             else {
                 Health[i].src = "Mini Minecraft 2/HealthEmpty.png";
             }
-            if (i == Health.length - 1)
-            {
+            if (i == Health.length - 1) {
                 good = true;
             }
         }
@@ -884,15 +806,14 @@
         for (let i = 0; i < Hunger.length; i++) {
             if (i <= hunger - 1) {
                 Hunger[i].src = "Mini Minecraft 2/HungerFull.png";
-            } else if (hunger % 1 == 0.5 && good2 == true) {
+            } else if (hunger % 1 >= 0.5 && good2 == true) {
                 Hunger[i].src = "Mini Minecraft 2/HungerHalf.png";
                 good2 = false;
             }
             else {
                 Hunger[i].src = "Mini Minecraft 2/HungerEmpty.png";
             }
-            if (i == Hunger.length - 1)
-            {
+            if (i == Hunger.length - 1) {
                 good2 = true;
             }
         }
@@ -901,21 +822,8 @@
     setInterval(Looping, 300)
 
     function Back() {
-        document.getElementById("Input").value = "";
-        document.getElementById("Input").style.display = "";
-        document.getElementById("Input2").value = "";
-        document.getElementById("Input2").style.display = "none";
-        document.getElementById("Input3").value = "";
-        document.getElementById("Input3").style.display = "none";
-        document.getElementById("Input3").value = "";
-        document.getElementById("Input3").style.display = "none";
-        document.getElementById("ZombieImage").style.display = "none";
-        document.getElementById("WolfImage").style.display = "none";
-        document.getElementById("CowImage").style.display = "none";
-        document.getElementById("SheepImage").style.display = "none";
-        document.getElementById("ChickenImage").style.display = "none";
+        Wipe(["Input"], ["Input2", "Input3", "ZombieImage", "WolfImage", "CowImage", "SheepImage", "ChickenImage"], ["Input", "Input2", "Input3"], [], [])
         document.getElementById("QuestionText").innerHTML = "Mine(1), Forage(2), Hunt(3), Home(4)? ";
-
     }
 
     function Looping() {
@@ -929,6 +837,9 @@
             }
             if (hunger <= 0 || health <= 0) {
                 document.getElementById("Output").innerHTML = "You died."
+                if (dayCount > localStorage.getItem("HighscoreDayCount")) {
+                    localStorage.setItem("HighscoreDayCount", dayCount)
+                }
                 go = false
             }
             var currentChoice = document.getElementById("QuestionText").innerHTML = "Mine(1), Forage(2), Hunt(3), Home(4)? "
@@ -947,11 +858,66 @@
         }
     }
 
-    function tutorial()
-    {
-        document.getElementById("MainImage").style.visibility = "hidden"
-        document.getElementById("Start").style.visibility = "visible"
-        document.getElementById("End").style.visibility = "hidden"
+    function Wipe(displayOn, displayNone, valueNone, visibleOn, visibleOff) {
+        if (displayOn.length != 0) {
+            for (let i = 0; i < displayOn.length; i++) {
+                let currentObj = displayOn[i];
+                document.getElementById(currentObj).style.display = ""
+            }
+        }
+
+        if (displayNone.length != 0) {
+            for (let i = 0; i < displayNone.length; i++) {
+                let currentObj = displayNone[i];
+                document.getElementById(currentObj).style.display = "none"
+            }
+        }
+        if (valueNone.length != 0) {
+            for (let i = 0; i < valueNone.length; i++) {
+                let currentObj = valueNone[i];
+                document.getElementById(currentObj).value = ""
+            }
+        }
+        if (visibleOn.length != 0) {
+            for (let i = 0; i < visibleOn.length; i++) {
+                let currentObj = visibleOn[i];
+                document.getElementById(currentObj).style.visibility = "visible"
+            }
+        }
+        if (visibleOff.length != 0) {
+            for (let i = 0; i < visibleOff.length; i++) {
+                let currentObj = visibleOff[i];
+                document.getElementById(currentObj).style.visibility = "hidden"
+            }
+        }
+    }
+
+    setInterval(() => {
+        var hungerLossing = 0.0010
+        var lossAmountPerDay = dayCount / 5
+        for (let i = 0; i < lossAmountPerDay; i++) {
+            hungerLossing += 0.001
+        }
+        hunger -= hungerLossing
+        hunger = hunger.toFixed(3)
+        if (localStorage.getItem("HighscoreDayCount")) {
+            if (dayCount > localStorage.getItem("HighscoreDayCount")) {
+                localStorage.setItem("HighscoreDayCount", dayCount)
+                document.getElementById("dayHighScoreCount").innerHTML = "Day's Lived Highscore: " + localStorage.getItem("HighscoreDayCount")
+            }
+        }
+        document.getElementById("dayCount").innerHTML = "Day Count: " + dayCount
+        HealthandHungerUpdate()
+    }, 200)
+
+    function Clear() {
+        if (localStorage.getItem("HighscoreDayCount") != null) {
+            localStorage.clear();
+        }
+    }
+
+    function tutorial() {
+        Wipe([], [], [], ["Start"], ["MainImage", "End"])
         var MainText = document.createElement("div");
 
         MainText.innerText = `In this game, you need to manage hearts and health.
