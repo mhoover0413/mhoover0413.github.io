@@ -596,7 +596,7 @@
             if (document.getElementById("Input3").value == "Mutton" && mutton !== 0) {
                 mutton -= 1
                 if (hunger < 9) {
-                    hunger += 1.0
+                    hunger = parseFloat(hunger) + 1.0
                 }
                 if (health < 9) {
                     health += 1
@@ -606,7 +606,7 @@
             if (document.getElementById("Input3").value == "Beef" && beef !== 0) {
                 beef -= 1
                 if (hunger < 9) {
-                    hunger += 1.5
+                    hunger = parseFloat(hunger) + 1.5
                 }
                 if (health < 9) {
                     health += 2
@@ -616,7 +616,7 @@
             if (document.getElementById("Input3").value == "RawChicken" && rawchicken !== 0) {
                 rawchicken -= 1
                 if (hunger < 9) {
-                    hunger += 0.5
+                    hunger = parseFloat(hunger) + 0.5
                 }
                 if (health < 9) {
                     health += 0.5
@@ -626,7 +626,7 @@
             if (document.getElementById("Input3").value == "Cooked Mutton" && cookedmutton !== 0) {
                 cookedmutton -= 1
                 if (hunger < 9) {
-                    hunger += 3
+                    hunger = parseFloat(hunger) + 3
                 }
                 if (health < 9) {
                     health += 3
@@ -636,7 +636,7 @@
             if (document.getElementById("Input3").value == "Cooked Beef" && cookedbeef !== 0) {
                 cookedbeef -= 1
                 if (hunger < 9) {
-                    hunger += 4
+                    hunger = parseFloat(hunger) + 4
                 }
                 if (health < 9) {
                     health += 4
@@ -646,7 +646,7 @@
             if (document.getElementById("Input3").value == "Cooked Chicken" && cookedchicken !== 0) {
                 cookedchicken -= 1
                 if (hunger < 9) {
-                    hunger += 3
+                    hunger = parseFloat(hunger) + 3
                 }
                 if (health < 9) {
                     health += 2.5
