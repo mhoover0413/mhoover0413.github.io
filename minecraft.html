@@ -10,33 +10,46 @@
 
 <div id="Whole Box" style="width: 1400 px; height: 800px; border: 2px solid black; padding: 15px;">
     <div id="Main Screen">
-        Update Notes: Cleaned up 83 lines of repitetive code, Added constant hunger loss depending on how long you live,
-        Day Counter, Day's Lived Highscore System
+        Update Notes: Added Dark Mode, Along with localStorage for which theme was last applied, Added Select Boxes instead of input text for most prompts.
         <br>
         <br>
-        <button id="Start" onclick="starting()">Start Sim</button>
-        <button id="End" onclick="ending()">End Sim</button>
-        <button id="Tutorial" onclick="tutorial()">Tutorial (Suggested)</button>
-        <button id="Clear" onclick="Clear()">Clear Highscore</button>
+        <button id="Start" onclick="starting()" class="Button">Start Sim</button>
+        <button id="End" onclick="ending()" class="Button">End Sim</button>
+        <button id="Tutorial" onclick="tutorial()" class="Button">Tutorial (Suggested)</button>
+        <button id="Clear" onclick="Clear()" class="Button">Clear Highscore</button>
+        <input type="checkbox" id="darkMode" onclick="changeMode(false) "> Dark Mode</input>
     </div>
     <div id="ConsoleBox" style="border: 2px solid red; padding: 10px; margin-top: 10px;">
         <text id="QuestionText">...</text>
         <br>
-        <input id="Input"></input>
-        <input id="Input2" style="display: none"></input>
-        <input id="Input3" style="display: none"></input>
-        <input id="Input4" style="display: none"></input>
+        <select id="Input" class="Selects">
+            <option value="-"></option>
+            <option value="1">Mine</option>
+            <option value="2">Forage</option>
+            <option value="3">Hunt</option>
+            <option value="4">Home</option>
+        </select>
+        <select id="Input2" style="display: none" class="Selects">
+            <option value="-"></option>
+            <option value="1">Put Item In Chest</option>
+            <option value="2">Open Chest</option>
+            <option value="3">Drop Item</option>
+            <option value="4">Craft</option>
+            <option value="5">Eat</option>
+        </select>
+        <input id="Input3" style="display: none" class="Selects"></input>
+        <input id="Input4" style="display: none" class="Selects"></input>
         <div id="backgroundBoxBorder"
             style="border: thick double grey; width: 354.5px; height: 90px; position: absolute; left: 873.5px; top: 142.5px; z-index: 2">
         </div>
         <div id="backgroundBox"
             style="background-color: black; width: 362px; height: 100px; position: absolute; left: 873.5px; top: 142.5px">
         </div>
-        <div id="dayHighScoreCount" style="position: absolute; color: white; left: 889px; font-size: 25px; top: 160px">
+        <div id="dayHighScoreCount" style="position: absolute; color: white; left: 889px; font-size: 25px; top: 160px" class="HighScore">
             Day's Lived Highscore: 0</div>
-        <div id="dayCount" style="position: absolute; color: white; left: 1010px; font-size: 25px; top: 200px">Day
+        <div id="dayCount" style="position: absolute; color: white; left: 1010px; font-size: 25px; top: 200px" class="HighScore">Day
             Count: </div>
-        <button onclick="Back()">Back To Choices</button>
+        <button onclick="Back()" class="Button">Back To Choices</button>
         <br>
         <img id="MainImage" src="Mini Minecraft 2/Minecraft.png" alt="Home Img"
             style="width: 1200px; height: 600px"></img>
@@ -101,10 +114,55 @@
 
 <script>
 
+    function changeMode(preset) {
+        if (document.getElementById("darkMode").checked || preset == true) {
+            console.log("asashska")
+            document.body.style.backgroundColor = "black";
+            var all = document.getElementsByTagName("*");
+
+            for (var i = 0, max = all.length; i < max; i++) {
+                if (all[i].className != "Button" && all[i].className != "HighScore" && all[i].className != "Selects")
+                {
+                    all[i].style.color = "white";
+                }
+            }
+            document.getElementById("Whole Box").style.border = "2px solid white"
+            document.getElementById("darkMode").checked = true;
+            localStorage.colorPref = "Dark"
+        }
+        else if (document.getElementById("darkMode").checked != true || preset == false){
+            console.log("quqwuwu")
+            document.body.style.backgroundColor = "white";
+            var all = document.getElementsByTagName("*");
+
+            for (var i = 0, max = all.length; i < max; i++) {
+                if (all[i].className != "Button" && all[i].className != "HighScore" && all[i].className != "Selects")
+                {
+                    all[i].style.color = "black";
+                }
+            }
+            document.getElementById("Whole Box").style.border = "2px solid black"
+
+            localStorage.colorPref = "Light"
+        }
+    }
+
     var dayCount = 0;
 
     //Original Script Length 973 lines (pure code)
     //Updated Script Length (pure code and comments)
+
+    if (localStorage.colorPref)
+    {
+        if (localStorage.colorPref == "Dark")
+        {
+            changeMode(true)
+        }
+        if (localStorage.colorPref == "Light")
+        {
+            changeMode(false)
+        }
+    }
 
     function ending() {
         if (dayCount > localStorage.getItem("HighscoreDayCount")) {
@@ -316,8 +374,9 @@
         var playerAnswer = document.getElementById("QuestionText").innerHTML = ("Put item in chest(1), Open Chest(2), Drop item(3), Craft(4), Eat(5)? ")
         document.getElementById("Input").style.display = "none";
         document.getElementById("Input2").style.display = "";
-        if (document.getElementById("Input2").value == "1" || document.getElementById("Input2").value == "11") {
+        if (document.getElementById("Input2").options[1].selected) {
             Wipe(["Input3"], ["Input2"], [], [], [])
+            UpdateLists()
             document.getElementById("PlayerInventory").innerHTML = "Player: " + player.toString()
             document.getElementById("ChestInventory").innerHTML = "Chest: " + chest.toString()
             var playerAnswer = document.getElementById("QuestionText").innerHTML = ("What do you want to transfer? ")
@@ -392,10 +451,11 @@
                 }
             }
         }
-        if (document.getElementById("Input2").value == "2" || document.getElementById("Input2").value == "22") {
+        if (document.getElementById("Input2").options[2].selected) {
             document.getElementById("PlayerInventory").innerHTML = "Player: " + player.toString()
             document.getElementById("ChestInventory").innerHTML = "Chest: " + chest.toString()
             Wipe(["Input3"], ["Input2"], [], [], [])
+            UpdateLists()
             var playerAnswer = document.getElementById("QuestionText").innerHTML = ("What do you want to transfer? ")
             if (document.getElementById("Input3").value == "Cobblestone" || document.getElementById("Input3").value == "cobblestone") {
                 if (chest_cobblestone != 0) {
@@ -469,16 +529,110 @@
                 }
             }
         }
-        if (document.getElementById("Input2").value == "3" || document.getElementById("Input2").value == "33") {
+        if (document.getElementById("Input2").options[3].selected) {
             Wipe(["Input3"], ["Input2"], [], [], [])
             UpdateLists()
             var playerDroppingAnswer = document.getElementById("QuestionText").innerHTML = ("What do you want to drop? ")
             var playerDropset = player //List equals player list
-            if (document.getElementById("Input3") in playerDropset) {
-                player.remove(playerDroppingAnswer)
-            }
+            playerDropset.forEach((item) => {
+                var res = item.replace('=', '') //   remove equals
+                for (let i = 0; i < 10; i++) {
+                    res = res.replace(String(i), '') // remove number
+                }
+                var lastres = res.replace(/\s/g, '') //   remove white space
+                console.log(document.getElementById("Input3").value)
+                console.log(lastres)
+                if (document.getElementById("Input3").value == lastres) {
+                    if (lastres == "Cobblestone") {
+                        if (cobblestone != 0) {
+                            document.getElementById("Input3").value = "";
+                            cobblestone--;
+                        }
+                    }
+                    if (lastres == "Coal") {
+                        if (coal != 0) {
+                            document.getElementById("Input3").value = "";
+                            coal--;
+                        }
+                    }
+                    if (lastres == "WoodPlanks") {
+                        if (woodplanks != 0) {
+                            document.getElementById("Input3").value = "";
+                            woodplanks--;
+                        }
+                    }
+                    if (lastres == "Stick") {
+                        if (sticks != 0) {
+                            document.getElementById("Input3").value = "";
+                            sticks--;
+                        }
+                    }
+                    if (lastres == "IronOre") {
+                        if (ironore != 0) {
+                            document.getElementById("Input3").value = "";
+                            ironore--;
+                        }
+                    }
+                    if (lastres == "Diamonds") {
+                        //Fix
+                        if (diamonds != 0) {
+                            document.getElementById("Input3").value = "";
+                            diamonds--;
+                        }
+                    }
+                    if (lastres == "Beef") {
+                        if (beef != 0) {
+                            document.getElementById("Input3").value = "";
+                            beef--;
+                        }
+                    }
+                    if (lastres == "Wool") {
+                        if (wool != 0) {
+                            document.getElementById("Input3").value = "";
+                            wool--;
+                        }
+                    }
+                    if (lastres == "Mutton") {
+                        if (mutton != 0) {
+                            document.getElementById("Input3").value = "";
+                            mutton--;
+                        }
+                    }
+                    if (lastres == "RawChicken") {
+                        if (rawchicken != 0) {
+                            document.getElementById("Input3").value = "";
+                            rawchicken--;
+                        }
+                    }
+                    if (lastres == "CookedChicken") {
+                        if (cookedchicken != 0) {
+                            document.getElementById("Input3").value = "";
+                            cookedchicken--;
+                        }
+                    }
+                    if (lastres == "CookedBeef") {
+                        if (cookedbeef != 0) {
+                            document.getElementById("Input3").value = "";
+                            cookedbeef--;
+                        }
+                    }
+                    if (lastres == "CookedMutton") {
+                        if (cookedmutton != 0) {
+                            document.getElementById("Input3").value = "";
+                            cookedmutton--;
+                        }
+                    }
+                    if (lastres == "Feathers") {
+                        if (feathers != 0) {
+                            document.getElementById("Input3").value = "";
+                            feathers--;
+                        }
+                    }
+                }
+
+            })
         }
-        if (document.getElementById("Input2").value == "4") {
+        if (document.getElementById("Input2").options[4].selected) {
             Wipe(["Input3"], ["Input2"], [], [], [])
             document.getElementById("Input2").style.display = "none";
             document.getElementById("Input3").style.display = "";
@@ -584,7 +738,7 @@
                 console.log("Incorrect Answer or Not Enough Materials.")
             }*/
         }
-        if (document.getElementById("Input2").value == "5" || document.getElementById("Input2").value == "55") {
+        if (document.getElementById("Input2").options[5].selected) {
             Wipe(["Input3"], ["Input2"], [], [], [])
             document.getElementById("Input2").style.display = "none";
             document.getElementById("Input3").style.display = "";
@@ -843,17 +997,21 @@
                 go = false
             }
             var currentChoice = document.getElementById("QuestionText").innerHTML = "Mine(1), Forage(2), Hunt(3), Home(4)? "
-            if (document.getElementById("Input").value == "1" || document.getElementById("Input").value == "11") {
+            if (document.getElementById("Input").options[1].selected == true) {
                 mine()
+                document.getElementById("Input").options[0].selected == true
             }
-            if (document.getElementById("Input").value == "2" || document.getElementById("Input").value == "22") {
+            if (document.getElementById("Input").options[2].selected == true) {
                 forage()
+                document.getElementById("Input").options[0].selected == true
             }
-            if (document.getElementById("Input").value == "3" || document.getElementById("Input").value == "33") {
+            if (document.getElementById("Input").options[3].selected == true) {
                 hunt()
+                document.getElementById("Input").options[0].selected == true
             }
-            if (document.getElementById("Input").value == "4" || document.getElementById("Input").value == "44") {
+            if (document.getElementById("Input").options[4].selected == true) {
                 home()
+                document.getElementById("Input").options[0].selected == true
             }
         }
     }
