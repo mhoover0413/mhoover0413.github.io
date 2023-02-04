@@ -12,14 +12,6 @@
     <br>
     <button id="StartGame" onclick="BeginGameLaptop()">Start FNAF 1 (Headphones Suggested + F11, Zoom out to 75%)
         *Laptop*</button>
-    <script type='text/javascript'
-        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js?id=133a13f7-9047-4b94-9a64-f7f97f861dab"></script>
-    <script type='text/javascript'
-        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js?id=a048f76d-c620-4516-9d22-1131ee997081"></script>
-    <script type='text/javascript'
-        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js?id=a3ef5d81-b415-463a-b75f-e3e5ee9ccbdb"></script>
-    <script type='text/javascript'
-        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js?id=6cd987a0-c46e-46a1-92e2-e3b0d79ff19e"></script>
 </body>
 <script>
     //Add a gus easter egg
@@ -757,6 +749,7 @@
             powerloss = 0;
         }
         if (barAmount == 1 && powerloss !== 0) {
+            // This line causes an error because it doesn't have any null checks
             document.getElementById("usage1").style.visibility = "visible"
             document.getElementById("usage2").style.visibility = "hidden"
             document.getElementById("usage3").style.visibility = "hidden"
@@ -989,6 +982,7 @@
     }
 
     function BugUp() {
+        //Creates UP GIF
         var HandUnitUP = document.createElement("img");
         HandUnitUP.src = "Fnaf1/HandUnitUp.gif"
         HandUnitUP.style.width = 500 + "px";
@@ -996,11 +990,13 @@
         HandUnitUP.style.left = 1500 + "px";
         HandUnitUP.style.top = 614 + "px";
         HandUnitUP.style.position = "absolute";
-        HandUnitUP.style.zIndex = 3;
+        HandUnitUP.style.zIndex = 1;
         HandUnitUP.id = "HandUnitUP"
         document.body.appendChild(HandUnitUP)
         setTimeout(function () {
+            //Deletes UP GIF
             document.getElementById("HandUnitUP").remove()
+            //Adds Bug Image
             var BugPay = document.createElement("img");
             BugPay.src = "Fnaf1/HandUnitPay.png"
             BugPay.style.width = 600 + "px";
@@ -1008,14 +1004,67 @@
             BugPay.style.left = 1444 + "px";
             BugPay.style.top = 580 + "px";
             BugPay.style.position = "absolute";
-            BugPay.style.zIndex = 3;
-            BugPay.id = "HandUnitUP"
+            BugPay.style.zIndex = 1;
+            BugPay.id = "BugPay"
             document.body.appendChild(BugPay)
+            //Adds Button
+            var ButtonPay = document.createElement("button");
+            ButtonPay.innerText = "Pay"
+            ButtonPay.style.width = 45 + "px";
+            ButtonPay.style.height = 20 + "px";
+            ButtonPay.style.left = 1820 + "px";
+            ButtonPay.style.top = 860 + "px";
+            ButtonPay.style.position = "absolute";
+            ButtonPay.style.zIndex = 1;
+            ButtonPay.id = "ButtonPay"
+            document.body.appendChild(ButtonPay)
+            ButtonPay.onclick = function () {
+                //Deletes Bug Image
+                document.getElementById("BugPay").remove()
+                //Deletes Button
+                document.getElementById("ButtonPay").remove()
+                //Creates DOWN GIF
+                var HandUnitDown = document.createElement("img");
+                HandUnitDown.src = "Fnaf1/HandUnitDown.gif"
+                HandUnitDown.style.width = 500 + "px";
+                HandUnitDown.style.height = 350 + "px";
+                HandUnitDown.style.left = 1500 + "px";
+                HandUnitDown.style.top = 614 + "px";
+                HandUnitDown.style.position = "absolute";
+                HandUnitDown.style.zIndex = 1;
+                HandUnitDown.id = "HandUnitDown"
+                document.body.appendChild(HandUnitDown)
+                setTimeout(function () {
+                    //Deletes DOWN GIF
+                    document.getElementById("HandUnitDown").remove()
+                }, 650)
+            }
         }, 340)
+    }
+
+    var timeOutPeriod = 120;
+
+    function BugCheck() {
+        if (document.getElementById("BugPay"))
+        {
+            console.log("Still Here")
+            timeOutPeriod--;
+            if (timeOutPeriod <= 0)
+            {
+                console.log("YA BOUTTA DIE SON")
+            }
+        }
+        if (!document.getElementById("BugPay"))
+        {
+            console.log("Gone")
+            timeOutPeriod = 120;
+        }
     }
 
     BugUp()
 
+    setInterval(BugCheck, 1000)
+    
     setInterval(UpdateTime, 90000)
     setInterval(UpdatePower, 1000)
 </script>
