@@ -21,7 +21,7 @@
     //Boop le nose goes to talons site (fnaf site), boop le cupcake goes to brandons site (fnaf ufc later)
 
     //1/10 chance to play a oggliebooglie sound instead of jumpscare (Flashbang effect with light?)
-
+    document.body.style.background = "#000000";
     var mainImg = document.createElement("img");
     mainImg.style.position = "absolute";
     mainImg.style.width = 2125 + "px";
@@ -1042,29 +1042,29 @@
         }, 340)
     }
 
-    var timeOutPeriod = 120;
+    var timeOutPeriod = 60;
+    var maxTime = 60;
 
     function BugCheck() {
-        if (document.getElementById("BugPay"))
-        {
+        if (document.getElementById("BugPay")) {
             console.log("Still Here")
             timeOutPeriod--;
-            if (timeOutPeriod <= 0)
-            {
+            if (timeOutPeriod <= 0) {
                 console.log("YA BOUTTA DIE SON")
+                var audio = new Audio('InsertCashLeft.mp3');
+                audio.play();
             }
         }
-        if (!document.getElementById("BugPay"))
-        {
+        if (!document.getElementById("BugPay")) {
             console.log("Gone")
-            timeOutPeriod = 120;
+            timeOutPeriod = maxTime;
         }
     }
 
     BugUp()
 
     setInterval(BugCheck, 1000)
-    
+
     setInterval(UpdateTime, 90000)
     setInterval(UpdatePower, 1000)
 </script>
