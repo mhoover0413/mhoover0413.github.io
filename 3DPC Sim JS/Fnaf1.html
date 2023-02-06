@@ -7,6 +7,10 @@
     <title>FNAF 1</title>
 </head>
 
+<video autoplay muted loop style="max-width: 500px; max-height: 190px; top: 710px; left: 1538px; position: absolute; z-index: 2; object-fit: fill; ">
+    <source src="Fnaf1/OneDay.mp4" type="video/mp4" style="">
+</video>
+
 <body>
     <button id="StartGame" onclick="BeginGameDesktop()">Start FNAF 1 (Headphones Suggested + F11) *Desktop*</button>
     <br>
@@ -21,6 +25,7 @@
     //Boop le nose goes to talons site (fnaf site), boop le cupcake goes to brandons site (fnaf ufc later)
 
     //1/10 chance to play a oggliebooglie sound instead of jumpscare (Flashbang effect with light?)
+
     document.body.style.background = "#000000";
     var mainImg = document.createElement("img");
     mainImg.style.position = "absolute";
@@ -38,6 +43,16 @@
     mainStatic.style.top = 0 + "px";
     mainStatic.src = "Fnaf1/MonitorFuzz.gif";
     mainStatic.style.zIndex = 3;
+
+    var senator = document.createElement("img");
+    senator.style.position = "absolute";
+    senator.style.width = 400 + "px";
+    senator.style.visibility = "hidden";
+    senator.style.filter = "brightness(35%)";
+    senator.style.left = 890 + "px";
+    senator.style.top = 670 + "px";
+    senator.src = "Fnaf1/SenatorCatstrong.png";
+    senator.style.zIndex = 2;
 
     var button = document.createElement("img");
     button.id = "Monitor"
@@ -494,6 +509,7 @@
         document.body.appendChild(bonnie)
         document.body.appendChild(chica)
         document.body.appendChild(foxy)
+        document.body.appendChild(senator)
 
         document.getElementById("ExitButton").onclick = function () { Monitor("forced") };
 
@@ -675,7 +691,6 @@
 
     function AnimatronicMoveArea(amount, animatronic, AILvl) {
         var randomNum = Math.floor(Math.random() * 20);
-        console.log(randomNum)
         if (randomNum > AILvl) {
             return;
         }
@@ -684,11 +699,8 @@
             for (let i = 0; i < amount; i++) {
                 tempRooms.push(roomList[i])
             }
-            console.log(tempRooms)
             var randomRoomPicked = Math.floor(Math.random() * tempRooms.length);
-            console.log(randomRoomPicked)
             var pickedRoom = tempRooms[randomRoomPicked]
-            console.log(pickedRoom)
             if (pickedRoom == "1a") {
                 animatronic.style.left = 1696 + "px"
                 animatronic.style.top = 680 + "px"
@@ -734,7 +746,6 @@
             }
             //Animatronic Check
             if (animatronic == freddy) {
-                console.log("eee")
                 freddy.style.left -= 20 + "px";
             }
             if (animatronic == chica) {
@@ -875,6 +886,11 @@
             monitorGIF.id = "MonGIFUpTemp"
             document.body.appendChild(monitorGIF)
             setTimeout(function () {
+                var random = Math.floor(Math.random() * 100 + 1);
+                console.log(random)
+                if (random <= 18 && document.getElementById("BugPay") == null) {
+                    BugUp()
+                }
                 document.getElementById("MonGIFUpTemp").remove()
                 var monitorFlat = document.createElement("img");
                 monitorFlat.src = "Fnaf1/camOverhead.png";
@@ -888,6 +904,7 @@
                 document.body.appendChild(monitorFlat)
                 //Code for monitor
                 mainStatic.style.visibility = "visible"
+                senator.style.visibility = "visible"
                 freddy.style.visibility = "visible";
                 chica.style.visibility = "visible";
                 bonnie.style.visibility = "visible";
@@ -983,6 +1000,23 @@
 
     function BugUp() {
         //Creates UP GIF
+        var random = Math.floor(Math.random() * 2 + 1);
+
+        if (random == 1)
+        {
+            console.log("Playing Sound Left")
+            //Play Left Sound (InsertCashLeft.mp3)
+            var audio = new Audio('InsertCashLeft.mp3');
+            audio.play() // i think
+        }
+        if (random == 2)
+        {
+            console.log("Playing Sound Right")
+            //Play Right Sound (InsertCashLeft.mp3)
+            var audio = new Audio('InsertCashRight.mp3');
+            audio.play() // i think
+        }
+
         var HandUnitUP = document.createElement("img");
         HandUnitUP.src = "Fnaf1/HandUnitUp.gif"
         HandUnitUP.style.width = 500 + "px";
@@ -1051,12 +1085,55 @@
             timeOutPeriod--;
             if (timeOutPeriod <= 0) {
                 console.log("YA BOUTTA DIE SON")
-                var audio = new Audio('InsertCashLeft.mp3');
-                audio.play();
+
+                var random = Math.floor(Math.random() * 100 + 1);
+                console.log(random)
+                if (random <= 33)
+                {
+                    // I can see you
+                    document.getElementById("BugPay").src = "Fnaf1/HandUnitDeath1.png"
+                    document.getElementById("ButtonPay").stlye.visibility = "hidden"
+
+                    setTimeout(() => {
+                        // Jumpscare
+                        // Jumpscare Audio
+                        // HighScore Saved
+                        // Restart or Quit
+                    }, 500)
+                }
+                if (random > 33 && random <= 66)
+                {
+                    // One day you will have to answer for your actions
+                    document.getElementById("BugPay").src = "Fnaf1/OneDay.mp4"
+                    document.getElementById("BugPay").codecs = "avc1.4d002a, mp4a.40.2";
+                    document.getElementById("BugPay").type = "video/mp4";
+                    document.getElementById("ButtonPay").stlye.visibility = "hidden"
+
+                    setTimeout(() => {
+                        // Jumpscare
+                        // Jumpscare Audio
+                        // HighScore Saved
+                        // Restart or Quit
+                    }, 500)
+                }
+                if (random > 66)
+                {
+                    // Run
+                    // Run Audio
+                    // QTE code
+
+                    // If win
+                        // +1 Pog
+                        // Close BugUp
+                    // If Lose
+                        // Jumpscare
+                        // Jumpscare Audio
+                        // HighScore Saved
+                        // Restart or Quit
+                }
             }
         }
         if (!document.getElementById("BugPay")) {
-            console.log("Gone")
             timeOutPeriod = maxTime;
         }
     }
