@@ -7,15 +7,15 @@
     <title>FNAF 1</title>
 </head>
 
-<video autoplay muted loop style="max-width: 500px; max-height: 190px; top: 710px; left: 1538px; position: absolute; z-index: 2; object-fit: fill; ">
-    <source src="Fnaf1/OneDay.mp4" type="video/mp4" style="">
-</video>
-
 <body>
     <button id="StartGame" onclick="BeginGameDesktop()">Start FNAF 1 (Headphones Suggested + F11) *Desktop*</button>
     <br>
     <button id="StartGame" onclick="BeginGameLaptop()">Start FNAF 1 (Headphones Suggested + F11, Zoom out to 75%)
         *Laptop*</button>
+    <script type='text/javascript'
+        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js"></script>
+    <script type='text/javascript'
+        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js"></script>
 </body>
 <script>
     //Add a gus easter egg
@@ -1002,15 +1002,13 @@
         //Creates UP GIF
         var random = Math.floor(Math.random() * 2 + 1);
 
-        if (random == 1)
-        {
+        if (random == 1) {
             console.log("Playing Sound Left")
             //Play Left Sound (InsertCashLeft.mp3)
             var audio = new Audio('InsertCashLeft.mp3');
             audio.play() // i think
         }
-        if (random == 2)
-        {
+        if (random == 2) {
             console.log("Playing Sound Right")
             //Play Right Sound (InsertCashLeft.mp3)
             var audio = new Audio('InsertCashRight.mp3');
@@ -1076,8 +1074,8 @@
         }, 340)
     }
 
-    var timeOutPeriod = 60;
-    var maxTime = 60;
+    var timeOutPeriod = 3;
+    var maxTime = 3;
 
     function BugCheck() {
         if (document.getElementById("BugPay")) {
@@ -1088,8 +1086,7 @@
 
                 var random = Math.floor(Math.random() * 100 + 1);
                 console.log(random)
-                if (random <= 33)
-                {
+                if (random <= 33) {
                     // I can see you
                     document.getElementById("BugPay").src = "Fnaf1/HandUnitDeath1.png"
                     document.getElementById("ButtonPay").stlye.visibility = "hidden"
@@ -1099,37 +1096,46 @@
                         // Jumpscare Audio
                         // HighScore Saved
                         // Restart or Quit
-                    }, 500)
+                    }, 1500)
                 }
-                if (random > 33 && random <= 66)
-                {
+                if (random > 33 && random <= 66) {
                     // One day you will have to answer for your actions
-                    document.getElementById("BugPay").src = "Fnaf1/OneDay.mp4"
-                    document.getElementById("BugPay").codecs = "avc1.4d002a, mp4a.40.2";
-                    document.getElementById("BugPay").type = "video/mp4";
-                    document.getElementById("ButtonPay").stlye.visibility = "hidden"
+                    var GIF = document.createElement("img");
+                    GIF.src = "Fnaf1/OneDay.gif"
+                    GIF.style.width = 290 + "px";
+                    GIF.style.height = 192 + "px";
+                    GIF.style.left = 1642 + "px";
+                    GIF.style.top = 710 + "px";
+                    GIF.style.position = "absolute";
+                    GIF.style.objectFit = "fill";
+                    GIF.style.zIndex = 1;
+                    GIF.id = "GIF"
+                    document.body.appendChild(GIF)
+                    var JumpAudio = new Audio("Fnaf1/OneDayAudio.mp3");
+                    JumpAudio.volume = 1;
+                    JumpAudio.play()
+                    document.getElementById("ButtonPay").style.visibility = "hidden"
 
                     setTimeout(() => {
                         // Jumpscare
                         // Jumpscare Audio
                         // HighScore Saved
                         // Restart or Quit
-                    }, 500)
+                    }, 1500)
                 }
-                if (random > 66)
-                {
+                if (random > 66) {
                     // Run
                     // Run Audio
                     // QTE code
 
                     // If win
-                        // +1 Pog
-                        // Close BugUp
+                    // +1 Pog
+                    // Close BugUp
                     // If Lose
-                        // Jumpscare
-                        // Jumpscare Audio
-                        // HighScore Saved
-                        // Restart or Quit
+                    // Jumpscare
+                    // Jumpscare Audio
+                    // HighScore Saved
+                    // Restart or Quit
                 }
             }
         }
