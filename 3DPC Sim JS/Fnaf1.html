@@ -20,8 +20,6 @@
 <script>
     //Add a gus easter egg
 
-    //1/10 chance to show mr smiths cat instead of chica
-
     //Boop le nose goes to talons site (fnaf site), boop le cupcake goes to brandons site (fnaf ufc later)
 
     //1/10 chance to play a oggliebooglie sound instead of jumpscare (Flashbang effect with light?)
@@ -34,6 +32,17 @@
     mainImg.style.left = 0 + "px";
     mainImg.style.top = 0 + "px";
     mainImg.src = "Fnaf1/MainFNAFBackground.png";
+
+    var JumpScare1 = document.createElement("img");
+    JumpScare1.src = "Fnaf1/BugDeath1.png"
+    JumpScare1.style.width = 1000 + "px";
+    JumpScare1.style.height = 1200 + "px";
+    JumpScare1.style.left = 650 + "px";
+    JumpScare1.style.top = -30 + "px";
+    JumpScare1.style.position = "absolute";
+    JumpScare1.style.zIndex = 1;
+    JumpScare1.style.visibility = "hidden"
+    JumpScare1.id = "JumpScare1"
 
     var mainStatic = document.createElement("img");
     mainStatic.style.position = "absolute";
@@ -510,6 +519,7 @@
         document.body.appendChild(chica)
         document.body.appendChild(foxy)
         document.body.appendChild(senator)
+        document.body.appendChild(JumpScare1)
 
         document.getElementById("ExitButton").onclick = function () { Monitor("forced") };
 
@@ -1074,11 +1084,12 @@
         }, 340)
     }
 
-    var timeOutPeriod = 3;
-    var maxTime = 3;
+    var timeOutPeriod = 50;
+    var maxTime = 50;
+    var jumpscareDone = false;
 
     function BugCheck() {
-        if (document.getElementById("BugPay")) {
+        if (document.getElementById("BugPay") && jumpscareDone == false) {
             console.log("Still Here")
             timeOutPeriod--;
             if (timeOutPeriod <= 0) {
@@ -1088,17 +1099,20 @@
                 console.log(random)
                 if (random <= 33) {
                     // I can see you
+                    jumpscareDone = true;
                     document.getElementById("BugPay").src = "Fnaf1/HandUnitDeath1.png"
-                    document.getElementById("ButtonPay").stlye.visibility = "hidden"
+                    document.getElementById("ButtonPay").style.visibility = "hidden"
 
                     setTimeout(() => {
+                        BugDeath1()
                         // Jumpscare
                         // Jumpscare Audio
                         // HighScore Saved
                         // Restart or Quit
-                    }, 1500)
+                    }, 3000)
                 }
                 if (random > 33 && random <= 66) {
+                    jumpscareDone = true;
                     // One day you will have to answer for your actions
                     var GIF = document.createElement("img");
                     GIF.src = "Fnaf1/OneDay.gif"
@@ -1112,16 +1126,15 @@
                     GIF.id = "GIF"
                     document.body.appendChild(GIF)
                     var JumpAudio = new Audio("Fnaf1/OneDayAudio.mp3");
-                    JumpAudio.volume = 1;
+                    JumpAudio.volume = .5;
                     JumpAudio.play()
                     document.getElementById("ButtonPay").style.visibility = "hidden"
 
                     setTimeout(() => {
+                        document.getElementById("GIF").remove()
                         // Jumpscare
-                        // Jumpscare Audio
-                        // HighScore Saved
-                        // Restart or Quit
-                    }, 1500)
+                        BugDeath1()
+                    }, 8000)
                 }
                 if (random > 66) {
                     // Run
@@ -1145,6 +1158,36 @@
     }
 
     BugUp()
+
+    function BugDeath1() {
+        // Jumpscare
+        document.getElementById("JumpScare1").style.visibility = "visible";
+        // Jumpscare Audio
+        var JumpAudioF = new Audio("Fnaf1/BugDeath.mp3");
+        JumpAudioF.volume = 1;
+        JumpAudioF.play()
+
+        setTimeout(() => {
+            document.getElementById("JumpScare1").style.top = -50 + "px"
+            setTimeout(() => {
+                document.getElementById("JumpScare1").style.top = 0 + "px"
+                setTimeout(() => {
+                    document.getElementById("JumpScare1").style.top = -50 + "px"
+                    setTimeout(() => {
+                        document.getElementById("JumpScare1").style.top = 0 + "px"
+                        setTimeout(() => {
+                            document.getElementById("JumpScare1").style.top = -50 + "px"
+                            setTimeout(() => {
+                                document.getElementById("JumpScare1").style.top = 0 + "px"
+                                // HighScore Saved
+                                // Restart or Quit
+                            }, 80);
+                        }, 80);
+                    }, 80);
+                }, 80);
+            }, 80);
+        }, 80);
+    }
 
     setInterval(BugCheck, 1000)
 
