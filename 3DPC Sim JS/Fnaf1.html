@@ -33,6 +33,17 @@
     mainImg.style.top = 0 + "px";
     mainImg.src = "Fnaf1/MainFNAFBackground.png";
 
+    var BlackOutImage = document.createElement("img");
+    BlackOutImage.style.position = "absolute";
+    BlackOutImage.style.width = 2525 + "px";
+    BlackOutImage.style.height = 1600 + "px";
+    BlackOutImage.style.left = 0 + "px";
+    BlackOutImage.style.top = 0 + "px";
+    BlackOutImage.style.visibility = "hidden"
+    BlackOutImage.style.zIndex = 20;
+    BlackOutImage.id = "BlackOutImage"
+    BlackOutImage.src = "Fnaf1/blackBackground.png";
+
     var JumpScare1 = document.createElement("img");
     JumpScare1.src = "Fnaf1/BugDeath1.png"
     JumpScare1.style.width = 1000 + "px";
@@ -48,6 +59,7 @@
     mainStatic.style.position = "absolute";
     mainStatic.style.width = 2125 + "px";
     mainStatic.style.visibility = "hidden";
+    mainStatic.style.pointerEvents = "none";
     mainStatic.style.left = 0 + "px";
     mainStatic.style.top = 0 + "px";
     mainStatic.src = "Fnaf1/MonitorFuzz.gif";
@@ -368,6 +380,17 @@
     time.style.left = 1760 + "px";
     time.style.zIndex = 4;
 
+    var PogCounter = document.createElement('div')
+    PogCounter.style.position = "fixed"
+    PogCounter.id = "PogCounter"
+    PogCounter.innerText = "Pogs: 0"
+    PogCounter.style.color = "white"
+    PogCounter.style.fontSize = 40;
+    PogCounter.style.width = 160 + "px";
+    PogCounter.style.height = 50 + "px";
+    PogCounter.style.left = 40 + "px";
+    PogCounter.style.zIndex = 4;
+
     var powerCount = document.createElement('div')
     powerCount.style.position = "fixed"
     powerCount.innerText = "Power left:100%"
@@ -432,6 +455,18 @@
     usageBar4.style.left = 350 + "px";
     usageBar4.style.top = 860 + "px";
     usageBar4.style.zIndex = 4;
+
+    var pog = document.createElement('img');
+    pog.id = "Pog"
+    pog.style.position = "fixed"
+    pog.src = "Fnaf1/Pog2.png"
+    pog.style.visibility = "hidden"
+    pog.style.width = 70 + "px";
+    pog.style.height = 70 + "px";
+    pog.style.filter = "brightness(30%)";
+    pog.style.left = 350 + "px";
+    pog.style.top = 500 + "px";
+    pog.style.zIndex = 3;
 
     //Fix Time
     var night = document.createElement('div')
@@ -520,6 +555,9 @@
         // document.body.appendChild(foxy)
         document.body.appendChild(senator)
         document.body.appendChild(JumpScare1)
+        document.body.appendChild(pog)
+        document.body.appendChild(PogCounter)
+        document.body.appendChild(BlackOutImage)
 
         document.getElementById("ExitButton").onclick = function () { Monitor("forced") };
 
@@ -534,6 +572,8 @@
         document.getElementById("invisButton9").onclick = function () { checkMonitorPos("4a") };
         document.getElementById("invisButton10").onclick = function () { checkMonitorPos("2b") };
         document.getElementById("invisButton11").onclick = function () { checkMonitorPos("4b") };
+
+        document.getElementById("Pog").onmouseover = function () { addPog() };
 
         document.getElementById("RightBttn").onclick = function () { LightDoor("RightBttn") };
 
@@ -611,6 +651,7 @@
     }
 
     var pogCount = 0;
+    var canUseMonitor = true;
 
     function UpdateTime() {
         var timer = document.getElementById("timer")
@@ -884,7 +925,7 @@
 
     function Monitor(check) {
         //FIX
-        if (monitorState == 0 && check == "normal") {
+        if (monitorState == 0 && check == "normal" && canUseMonitor == true) {
             barAmount = 1;
             window.onmousemove = "";
             window.scrollTo(0, 0)
@@ -917,7 +958,7 @@
                 document.body.appendChild(monitorFlat)
                 //Code for monitor
                 mainStatic.style.visibility = "visible"
-                senator.style.visibility = "visible"
+                //senator.style.visibility = "visible"
                 freddy.style.visibility = "visible";
                 chica.style.visibility = "visible";
                 bonnie.style.visibility = "visible";
@@ -930,7 +971,7 @@
                 return;
             }, 500)
         }
-        if (monitorState == 1 && check == "normal") {
+        if (monitorState == 1 && check == "normal" && canUseMonitor == true) {
             barAmount = 0;
             checkMonitorPos(currentCamPos)
             mainStatic.style.visibility = "hidden"
@@ -938,6 +979,7 @@
             chica.style.visibility = "hidden";
             bonnie.style.visibility = "hidden";
             foxy.style.visibility = "hidden";
+            document.getElementById("Pog").style.visibility = "hidden"
             document.getElementById("MonFlatUp").remove()
             var monitorGIF2 = document.createElement("img");
             monitorGIF2.src = "Fnaf1/camDown.gif"
@@ -969,11 +1011,13 @@
                 return;
             }, 500)
         }
-        if (check == "forced") {
+        if (check == "forced" && canUseMonitor == true) {
             barAmount = 0;
             checkMonitorPos(currentCamPos)
             mainStatic.style.visibility = "hidden"
-            document.getElementById("MonFlatUp").remove()
+            if (document.getElementById("MonFlatUp")) {
+                document.getElementById("MonFlatUp").remove()
+            }
             var monitorGIF2 = document.createElement("img");
             monitorGIF2.src = "Fnaf1/CamDown.gif"
             monitorGIF2.style.width = 1920 + "px";
@@ -1006,9 +1050,28 @@
         }
     }
 
+    var lastPos = "";
+
     function checkMonitorPos(pos) {
-        document.getElementById("CamMini").src = "Fnaf1/Cam" + pos + ".png";
-        document.getElementById("CamMainImage").src = "Fnaf1/Cam" + pos + "Image.png";
+        console.log(lastPos)
+        console.log(pos)
+        if (lastPos != pos) {
+            document.getElementById("Pog").style.visibility = "hidden"
+            document.getElementById("CamMini").src = "Fnaf1/Cam" + pos + ".png";
+            document.getElementById("CamMainImage").src = "Fnaf1/Cam" + pos + "Image.png";
+            var chanceForPog = Math.floor(Math.random() * 100);
+            if (chanceForPog < 20) {
+                var randNum = Math.floor(Math.random() * 2) + 1;
+                console.log(randNum)
+                document.getElementById("Pog").src = "Fnaf1/Pog" + randNum + ".png"
+                var randomPogChanceX = Math.floor(Math.random() * 1200) + 200;
+                var randomPogChanceY = Math.floor(Math.random() * 400) + 200;
+                document.getElementById("Pog").style.left = randomPogChanceX + "px";
+                document.getElementById("Pog").style.top = randomPogChanceY + "px";
+                document.getElementById("Pog").style.visibility = "visible"
+                lastPos = pos;
+            }
+        }
     }
 
     function BugUp() {
@@ -1064,27 +1127,37 @@
             ButtonPay.id = "ButtonPay"
             document.body.appendChild(ButtonPay)
             ButtonPay.onclick = function () {
-                //Deletes Bug Image
-                document.getElementById("BugPay").remove()
-                //Deletes Button
-                document.getElementById("ButtonPay").remove()
-                //Creates DOWN GIF
-                var HandUnitDown = document.createElement("img");
-                HandUnitDown.src = "Fnaf1/HandUnitDown.gif"
-                HandUnitDown.style.width = 500 + "px";
-                HandUnitDown.style.height = 350 + "px";
-                HandUnitDown.style.left = 1500 + "px";
-                HandUnitDown.style.top = 614 + "px";
-                HandUnitDown.style.position = "absolute";
-                HandUnitDown.style.zIndex = 1;
-                HandUnitDown.id = "HandUnitDown"
-                document.body.appendChild(HandUnitDown)
-                setTimeout(function () {
-                    //Deletes DOWN GIF
-                    document.getElementById("HandUnitDown").remove()
-                }, 650)
+                if (pogCount >= 2) {
+                    pogCount -= 2;
+                    document.getElementById("PogCounter").innerHTML = "Pogs: " + pogCount;
+                    //Deletes Bug Image
+                    document.getElementById("BugPay").remove()
+                    //Deletes Button
+                    document.getElementById("ButtonPay").remove()
+                    //Creates DOWN GIF
+                    var HandUnitDown = document.createElement("img");
+                    HandUnitDown.src = "Fnaf1/HandUnitDown.gif"
+                    HandUnitDown.style.width = 500 + "px";
+                    HandUnitDown.style.height = 350 + "px";
+                    HandUnitDown.style.left = 1500 + "px";
+                    HandUnitDown.style.top = 614 + "px";
+                    HandUnitDown.style.position = "absolute";
+                    HandUnitDown.style.zIndex = 1;
+                    HandUnitDown.id = "HandUnitDown"
+                    document.body.appendChild(HandUnitDown)
+                    setTimeout(function () {
+                        //Deletes DOWN GIF
+                        document.getElementById("HandUnitDown").remove()
+                    }, 650)
+                }
             }
         }, 340)
+    }
+
+    function addPog() {
+        pogCount++;
+        document.getElementById("PogCounter").innerHTML = "Pogs: " + pogCount;
+        document.getElementById("Pog").style.visibility = "hidden"
     }
 
     var timeOutPeriod = 40;
@@ -1102,10 +1175,12 @@
 
     function BugCheck() {
         if (document.getElementById("BugPay") && jumpscareDone == false) {
-            console.log("Still Here")
             timeOutPeriod--;
-            if (timeOutPeriod <= 0) {
-                console.log("YA BOUTTA DIE SON")
+            if (timeOutPeriod <= 0 && monitorState != 1) {
+                if (monitorState == 1) {
+                    Monitor("forced")
+                }
+                canUseMonitor = false;
 
                 var random = Math.floor(Math.random() * 100 + 1);
                 console.log(random)
@@ -1298,8 +1373,11 @@
                                 document.getElementById("JumpScare1").style.top = -50 + "px"
                                 setTimeout(() => {
                                     document.getElementById("JumpScare1").style.top = 0 + "px"
-                                    // HighScore Saved
-                                    // Restart or Quit
+                                    setTimeout(() => {
+                                        document.getElementById("BlackOutImage").style.visibility = "visible"
+                                        // HighScore Saved
+                                        // Restart or Quit
+                                    }, 180);
                                 }, 80);
                             }, 80);
                         }, 80);
@@ -1329,8 +1407,11 @@
                                 document.getElementById("JumpScare1").style.top = -50 + "px"
                                 setTimeout(() => {
                                     document.getElementById("JumpScare1").style.top = 0 + "px"
-                                    // HighScore Saved
-                                    // Restart or Quit
+                                    setTimeout(() => {
+                                        document.getElementById("BlackOutImage").style.visibility = "visible"
+                                        // HighScore Saved
+                                        // Restart or Quit
+                                    }, 180);
                                 }, 80);
                             }, 80);
                         }, 80);
@@ -1346,4 +1427,4 @@
     setInterval(UpdatePower, 1000)
 </script>
 
-</html>`    
+</html>`
