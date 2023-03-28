@@ -12,10 +12,6 @@
     <br>
     <button id="StartGame" onclick="BeginGameLaptop()">Start FNAF 1 (Headphones Suggested + F11, Zoom out to 75%)
         *Laptop*</button>
-    <script type='text/javascript'
-        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js"></script>
-    <script type='text/javascript'
-        src="https://liveycstech-my.sharepoint.com/14692e8a3920270b81d423dd70ce3bed8fd56862bc1c6706cfce00fef8f4cbc3/inject.js"></script>
 </body>
 <script>
     //Add a gus easter egg
@@ -43,6 +39,17 @@
     BlackOutImage.style.zIndex = 20;
     BlackOutImage.id = "BlackOutImage"
     BlackOutImage.src = "Fnaf1/blackBackground.png";
+
+    var deadText = document.createElement("img");
+    deadText.style.position = "absolute";
+    deadText.style.width = 1000 + "px";
+    deadText.style.height = 800 + "px";
+    deadText.style.left = 0 + "px";
+    deadText.style.top = 0 + "px";
+    deadText.style.visibility = "hidden"
+    deadText.style.zIndex = 20;
+    deadText.id = "deadText"
+    deadText.src = "Fnaf1/deathText.png";
 
     var JumpScare1 = document.createElement("img");
     JumpScare1.src = "Fnaf1/BugDeath1.png"
@@ -104,6 +111,17 @@
     mainMini.id = "CamMini"
     mainMini.src = "Fnaf1/Cam1a.png";
     mainMini.style.zIndex = 2;
+
+    var invisMove = document.createElement("img");
+    invisMove.style.position = "absolute";
+    invisMove.style.width = 12 + "px";
+    invisMove.style.height = 8 + "px";
+    //invisButton1.style.visibility = "hidden";
+    invisMove.style.left = 892 + "px";
+    invisMove.style.top = 321 + "px";
+    invisMove.id = "invisMove"
+    invisMove.src = "Fnaf1/invisImg.png";
+    invisMove.style.zIndex = 5;
 
     var invisButton1 = document.createElement("img");
     invisButton1.style.position = "absolute";
@@ -558,6 +576,8 @@
         document.body.appendChild(pog)
         document.body.appendChild(PogCounter)
         document.body.appendChild(BlackOutImage)
+        document.body.appendChild(deadText)
+        document.body.appendChild(invisMove)
 
         document.getElementById("ExitButton").onclick = function () { Monitor("forced") };
 
@@ -572,6 +592,8 @@
         document.getElementById("invisButton9").onclick = function () { checkMonitorPos("4a") };
         document.getElementById("invisButton10").onclick = function () { checkMonitorPos("2b") };
         document.getElementById("invisButton11").onclick = function () { checkMonitorPos("4b") };
+
+        document.getElementById("invisMove").onclick = function () { window.location.href = "https://talon24229.github.io/"; };
 
         document.getElementById("Pog").onmouseover = function () { addPog() };
 
@@ -1375,6 +1397,7 @@
                                     document.getElementById("JumpScare1").style.top = 0 + "px"
                                     setTimeout(() => {
                                         document.getElementById("BlackOutImage").style.visibility = "visible"
+                                        document.getElementById("deadText").style.visibility = "visible"
                                         // HighScore Saved
                                         // Restart or Quit
                                     }, 180);
@@ -1409,6 +1432,11 @@
                                     document.getElementById("JumpScare1").style.top = 0 + "px"
                                     setTimeout(() => {
                                         document.getElementById("BlackOutImage").style.visibility = "visible"
+                                        var randX = Math.floor(Math.random() * 1200);
+                                        var randY = Math.floor(Math.random() * 300);
+                                        document.getElementById("deadText").style.left = randX + "px";
+                                        document.getElementById("deadText").style.top = randY + "px";
+                                        document.getElementById("deadText").style.visibility = "visible"
                                         // HighScore Saved
                                         // Restart or Quit
                                     }, 180);
@@ -1425,6 +1453,7 @@
 
     setInterval(UpdateTime, 90000)
     setInterval(UpdatePower, 1000)
+//1445 LINES!
 </script>
 
-</html>`
+</html>
